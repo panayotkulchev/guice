@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Deposit funds</title>
+    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="kickstart/css/kickstart.css"/>
+</head>
+
+<body style="background-color: #f0f0f0">
+
+<div>@Menu<span/></div>
+
+<div id="container-wide">
+
+    <div align="center">
+        <h6 style="color: #5e5e5e">DEPOSIT FUNDS</h6>
+        <p style="color: #B21203">${message}</p>
+        <form action="/deposit" method="post">
+            <input type="text" name="amount" placeholder="0"/>
+
+            <p></p>
+            <input type="submit" value="DEPOSIT"/>
+        </form>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="kickstart/js/kickstart.js"></script>
+
+</body>
+</html>

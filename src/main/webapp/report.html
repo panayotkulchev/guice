@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Deposit funds</title>
+    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="kickstart/css/kickstart.css"/>
+</head>
+
+<body>
+
+<div>@Menu<span/></div>
+
+<div id="container-wide">
+
+
+    <div align="center">
+        <h6 style="color: #5e5e5e">MONTHLY REPORT</h6>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Amount before operation</th>
+                <th>Amount after operation</th>
+                <th>Type of operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            @Repeat(items=histories, var="history", pageVar="page")
+            <tr>
+                <th>${index+1}</th>
+                <td><a href="#">${history.transactionDate}
+                </a></td>
+                <td>${history.amountBefore}
+                </td>
+                <td>${history.amountAfter}
+                </td>
+                <td>OPERATION
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br/>
+
+    <p align="center" style="color: #660000">
+
+        <a href="/report?page=1">Firs</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+        @ShowIf(previousButtonIsActive)
+        <span>
+            <a href='/report?page=${page-1}'>&#60;&#60; Previous</a>
+        </span>
+
+        @ShowIf(!previousButtonIsActive)
+        <span>
+             &#60;&#60; Previous
+        </span>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        page: ${page} from ${numOfPages}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        @ShowIf(nextButtonIsActive)
+        <span>
+        <a href="/report?page=${page+1}">Next &#62;&#62;</a>
+        </span>
+        @ShowIf(!nextButtonIsActive)
+        <span>
+        Next &#62;&#62;
+        </span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href='/report?page=${numOfPages}'> Last </a>
+    </p>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="kickstart/js/kickstart.js"></script>
+
+</body>
+</html>

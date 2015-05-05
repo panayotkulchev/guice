@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Login page</title>
+    <link rel="stylesheet" href="kickstart/css/kickstart.css" media="all"/>
+    <link rel="stylesheet" href="kickstart/css/kickstart-menus.css" media="all"/>
+</head>
+
+<body style="background-color: #f0f0f0">
+
+<div style="width: 1000px; margin: 10px auto;">
+    <div style="text-align: center">
+        <ul class="menu">
+            <li class="current"><a href="/welcome">HOME</a></li>
+            <li><a href="/deposit">DEPOSIT</a></li>
+            <li><a href="/withdraw">WITHDRAW</a></li>
+            <li><a href="#">EXCHANGE RATES</a></li>
+            <li><a href="/report">MONTHLY REPORT</a></li>
+        </ul>
+    </div>
+
+    <table>
+        <tr>
+            <th style="text-align: left">
+                <p class="left" style="font-size: medium; color: #5e5e5e">Balance: ${userAmount}.00 USD</p>
+
+            </th>
+            <th>
+                <p class="right" style="font-size: medium; color: #5e5e5e"> Logged in as: ${userEmail}&nbsp;&nbsp;<a
+                        class="button small red" href="/logout"><i class="fa fa-minus-square"></i>&nbsp;Logout</a></p>
+            </th>
+        </tr>
+    </table>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="kickstart/js/kickstart.js"></script>
+</body>
+</html>
