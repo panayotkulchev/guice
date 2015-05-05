@@ -23,7 +23,7 @@ public class Menu {
 
   @Inject
   public Menu(SessionRepository sessionRepository,
-              CurrentUser currentUser,Provider<CurrentUser> userProvider) {
+              CurrentUser currentUser) {
 
     onlineUsersNumber = sessionRepository.count();
     userEmail=currentUser.email;

@@ -41,7 +41,6 @@ public class CacheFilter implements Filter {
 
     String uri = request.getRequestURI();
     if (pages.contains(uri)) {
-      System.out.println("CacheFilter have a hit ");
 
       HttpServletResponse response = (HttpServletResponse) servletResponse;
 

@@ -24,7 +24,7 @@ public class DataStore {
   private ConnectionProvider connectionProvider;
 
   @Inject
-  public DataStore(@Named("treadLocal")ConnectionProvider connectionProvider) {
+  public DataStore(ConnectionProvider connectionProvider) {
 
     this.connectionProvider = connectionProvider;
   }

@@ -56,6 +56,7 @@ public class AppConfig extends GuiceServletContextListener {
                         at("/logout").show(Logout.class);
                         at("/menu").show(Menu.class);
                         at("/report").show(Report.class);
+
                         embed(Menu.class).as("Menu");
                     }
                 },
@@ -64,8 +65,7 @@ public class AppConfig extends GuiceServletContextListener {
                     @Override
                     protected void configure() {
 
-                        bind(ConnectionProvider.class).annotatedWith(Names.named("treadLocal")).to(JdbcConnectionProvider.class);
-                        bind(ConnectionProvider.class).annotatedWith(Names.named("quartz")).to(SchedulerConnectionProvider.class);
+                        bind(ConnectionProvider.class).to(JdbcConnectionProvider.class);
 
                         bind(SessionRepository.class).to(PersistentSessionRepository.class);
 
