@@ -1,4 +1,0 @@
-guice
-=====
-
-Working with Guice
