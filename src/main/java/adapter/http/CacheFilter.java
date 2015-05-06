@@ -23,7 +23,7 @@ import java.util.Set;
 @Singleton
 public class CacheFilter implements Filter {
 
-  private Set<String> pages;
+  private final Set<String> pages;
 
   @Inject
   public CacheFilter(Set<String> pages) {

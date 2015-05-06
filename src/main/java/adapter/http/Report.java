@@ -22,12 +22,10 @@ import java.util.List;
 public class Report {
 
     public Integer page = 1;
-    public List<OperationHistory> histories;
-    public Integer start;
-    public Integer offset;
     public Integer numOfPages;
     public boolean nextButtonIsActive;
     public boolean previousButtonIsActive;
+    public List<OperationHistory> histories;
 
     private final UserRepository userRepository;
     private final FundsRepository fundsRepository;
@@ -51,9 +49,9 @@ public class Report {
         String sid = SidProvider.getSid(request);
         Integer userId = userRepository.getBySid(sid).id;
 
-        offset = PageProperties.get("recordsPerPage");
+        Integer offset = PageProperties.get("recordsPerPage");
 
-        start = (page - 1) * 5;
+        Integer start = (page - 1) * 5;
 
         histories = fundsRepository.getHistoryByPages(userId, start, offset);
 

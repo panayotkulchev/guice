@@ -60,8 +60,8 @@
         <span>
              &#60;&#60; Previous
         </span>
-
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
         page: ${page} from ${numOfPages}
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -69,11 +69,13 @@
         <span>
         <a href="/report?page=${page+1}">Next &#62;&#62;</a>
         </span>
+
         @ShowIf(!nextButtonIsActive)
         <span>
         Next &#62;&#62;
         </span>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
         <a href='/report?page=${numOfPages}'> Last </a>
     </p>
 
