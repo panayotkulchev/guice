@@ -18,11 +18,10 @@ import core.FundsRepository;
 @Show("withdraw.html")
 public class Withdraw {
 
-  public String message = "";
-  public String amount = "0";
+  public String message;
+  public String amount;
 
-  public Provider<CurrentUser> currentUser;
-
+  public final Provider<CurrentUser> currentUser;
   private final FundsRepository fundsRepository;
 
   @Inject

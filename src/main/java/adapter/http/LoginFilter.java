@@ -30,7 +30,7 @@ import java.io.IOException;
 @Singleton
 public class LoginFilter implements Filter {
 
-  SessionRepository sessionRepository;
+  private final SessionRepository sessionRepository;
 
   @Inject
   public LoginFilter(SessionRepository sessionRepository) {

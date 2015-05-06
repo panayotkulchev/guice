@@ -6,6 +6,7 @@ package core;
  * happy coding ...
  */
 public class AuthorizationResult {
+
   public final User user;
   public final boolean successful;
 

@@ -21,7 +21,7 @@ import java.util.List;
 
 public class DataStore {
 
-  private ConnectionProvider connectionProvider;
+  private final ConnectionProvider connectionProvider;
 
   @Inject
   public DataStore(ConnectionProvider connectionProvider) {

@@ -17,7 +17,4 @@ public interface SessionRepository {
 
   Integer count();
 
-  Integer getUserIdBySid(String sid);
-
-  void cleanExpired();
 }

@@ -27,13 +27,12 @@ import java.util.List;
 
 public class Register {
 
-  public String email = "";
-  public String password = "";
-  public String message = "";
+  public String email;
+  public String password;
+  public String message;
+
   private final FundsRepository fundsRepository;
   private final Provider<HttpServletRequest> requestProvider;
-
-  private List<String> errorList;
   private final UserRepository userRepository;
 
   @Inject
@@ -58,7 +57,7 @@ public class Register {
     RegexValidator regexValidator = new RegexValidator(rules);
     RequestImpl req = new RequestImpl(request.getParameterMap());
 
-    errorList = regexValidator.validate(req);
+    List<String> errorList = regexValidator.validate(req);
 
     if (errorList.size() != 0) {
       return "/register?message=" + errorList.get(0);

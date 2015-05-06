@@ -16,8 +16,6 @@ public interface UserRepository {
 
   User getByEmail(String email);
 
-  User getById(Integer id);
-
   AuthorizationResult authorize(String email, String password);
 
   CurrentUser getBySid(String sid);

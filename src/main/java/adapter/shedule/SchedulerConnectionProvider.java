@@ -23,10 +23,8 @@ public class SchedulerConnectionProvider implements ConnectionProvider {
     } catch (Exception e) {
       e.printStackTrace();
     }
+
     return connection;
-//    return ConnectionPool.getInstance().acquire();
-
-
   }
 }
 

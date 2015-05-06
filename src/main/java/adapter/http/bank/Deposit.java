@@ -18,10 +18,10 @@ import core.FundsRepository;
 @Show("deposit.html")
 public class Deposit {
 
-  public String message = "";
+  public String message;
   public String amount;
 
-  private Provider<CurrentUser> currentUser;
+  private final Provider<CurrentUser> currentUser;
   private final FundsRepository fundsRepository;
 
 

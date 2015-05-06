@@ -6,6 +6,7 @@ package core;
  * happy coding ...
  */
 public class CurrentUser {
+
   public final String email;
   public final Integer amount;
   public final Integer id;

@@ -35,9 +35,9 @@ import java.util.UUID;
 @Show("login.html")
 public class Login {
 
-  public String email = "";
-  public String password = "";
-  public String message = "";
+  public String email;
+  public String password;
+  public String message;
 
   private final Provider<HttpServletRequest> requestProvider;
   private final Provider<HttpServletResponse> responseProvider;

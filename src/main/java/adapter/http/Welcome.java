@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Show("welcome.html")
 public class Welcome {
+
   public Integer onlineUsersNumber = 0;
 
   @Inject

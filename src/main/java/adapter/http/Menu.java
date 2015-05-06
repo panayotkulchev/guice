@@ -16,9 +16,9 @@ import core.*;
 @EmbedAs("Menu")
 public class Menu {
 
-  public Integer onlineUsersNumber = 0;
-  public Integer userAmount = 0;
-  public String userEmail = "someEmail";
+  public Integer onlineUsersNumber;
+  public Integer userAmount;
+  public String userEmail;
 
 
   @Inject

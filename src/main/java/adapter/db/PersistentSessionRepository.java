@@ -55,36 +55,5 @@ public class PersistentSessionRepository implements SessionRepository {
     return dataStore.executeCount("SELECT count(*) FROM bank.session;");
   }
 
-  @Override
-  public Integer getUserIdBySid(String sid){
-    String sidToInject = "'" + sid + "'";
-    return dataStore.fetchRows("SELECT * FROM bank.session WHERE sid=" + sidToInject, new RowFetcher<Session>() {
-      @Override
-      public Session fetchRow(ResultSet rs) throws SQLException {
-        return new Session(rs.getString("sid"),rs.getInt("user_fk"),rs.getLong("expiration_time"));
-      }
-    }).get(0).userId;
-  }
 
-  @Override
-  public void cleanExpired() {
-    new Thread(new Runnable() {
-      @Override
-
-      public void run() {
-        while (true) {
-          try {
-
-            Thread.sleep(SessionProperties.get("sessionCleanUpRate"));
-            System.out.println("Started session clean process!");
-            dataStore.executeQery("DELETE FROM bank.session WHERE expiration_time<?;", System.currentTimeMillis());
-
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
-        }
-
-      }
-    }).start();
-  }
 }

@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.util.Properties;
 
 /**
- * Created by pepo on 15-5-2.
+ * Created by Panayot Kulchev on 15-5-2.
+ * e-mail: panayotkulchev@gmail.com
+ * happy codding ...
  */
 public class PageProperties {
 

@@ -67,19 +67,6 @@ public class PersistentUserRepository implements UserRepository {
     });
   }
 
-
-  @Override
-  public User getById(Integer id) {
-    String idToInject = "'" + id + "'";
-    return dataStore.fetchRow("SELECT * FROM user WHERE user_pk =" + idToInject, new RowFetcher<User>() {
-      @Override
-      public User fetchRow(ResultSet rs) throws SQLException {
-        return new User(rs.getInt("user_pk"), rs.getString("user_email"));
-      }
-    });
-  }
-
-
   @Override
   public CurrentUser getBySid(String sid) {
     String query = "select user_pk, user_email, amount from bank.user " +

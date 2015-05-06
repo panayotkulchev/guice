@@ -14,9 +14,7 @@ import org.slf4j.LoggerFactory;
  */
 public class SessionCleanUpJob implements Job {
 
-
     DataStore dataStore = new DataStore(new SchedulerConnectionProvider());
-
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {

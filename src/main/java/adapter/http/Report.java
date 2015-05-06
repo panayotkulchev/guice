@@ -6,10 +6,7 @@ import com.google.inject.Provider;
 import com.google.sitebricks.At;
 import com.google.sitebricks.Show;
 import com.google.sitebricks.http.Get;
-import core.FundsRepository;
-import core.OperationHistory;
-import core.SessionRepository;
-import core.SidProvider;
+import core.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -27,22 +24,22 @@ public class Report {
     public Integer page = 1;
     public List<OperationHistory> histories;
     public Integer start;
-    public Integer offset = 5;
-    public Integer numOfPages = 0;
+    public Integer offset;
+    public Integer numOfPages;
     public boolean nextButtonIsActive;
     public boolean previousButtonIsActive;
 
-    private final SessionRepository sessionRepository;
+    private final UserRepository userRepository;
     private final FundsRepository fundsRepository;
     private final Provider<HttpServletRequest> requestProvider;
 
 
     @Inject
-    public Report(SessionRepository sessionRepository,
+    public Report(UserRepository userRepository,
                   FundsRepository fundsRepository,
                   Provider<HttpServletRequest> requestProvider) {
 
-        this.sessionRepository = sessionRepository;
+        this.userRepository = userRepository;
         this.fundsRepository = fundsRepository;
         this.requestProvider = requestProvider;
     }
@@ -52,7 +49,7 @@ public class Report {
 
         HttpServletRequest request = requestProvider.get();
         String sid = SidProvider.getSid(request);
-        Integer userId = sessionRepository.getUserIdBySid(sid);
+        Integer userId = userRepository.getBySid(sid).id;
 
         offset = PageProperties.get("recordsPerPage");
 

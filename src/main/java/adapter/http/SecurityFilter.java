@@ -26,7 +26,7 @@ import java.io.IOException;
 @Singleton
 public class SecurityFilter implements Filter {
 
-  private SessionRepository sessionRepository;
+  private final SessionRepository sessionRepository;
 
   @Inject
   public SecurityFilter(SessionRepository sessionRepository) {
