@@ -2,13 +2,9 @@ package adapter.db;
 
 
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
+import com.google.inject.Provider;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +17,11 @@ import java.util.List;
 
 public class DataStore {
 
-  private final ConnectionProvider connectionProvider;
+
+  private final Provider<Connection> connectionProvider;
 
   @Inject
-  public DataStore(ConnectionProvider connectionProvider) {
+  public DataStore(Provider<Connection> connectionProvider) {
 
     this.connectionProvider = connectionProvider;
   }
@@ -32,8 +29,7 @@ public class DataStore {
 
   public void execute(String... queries) {
 
-    Connection connection = connectionProvider.getConnection();
-
+    Connection connection = connectionProvider.get();
     Statement statement;
     try {
 
@@ -57,7 +53,7 @@ public class DataStore {
       throw new IncorrectMethodParamsException();
     } else {
 
-      Connection connection = connectionProvider.getConnection();
+      Connection connection = connectionProvider.get();
 
       PreparedStatement statement;
       int index = 0;
@@ -83,7 +79,8 @@ public class DataStore {
 
 
   public Integer executeCount(String query) {
-    Connection connection = connectionProvider.getConnection();
+    Connection connection = connectionProvider.get();
+
     Statement statement;
     ResultSet resultSet;
     Integer result = 0;
@@ -119,7 +116,7 @@ public class DataStore {
 
   public <T> List<T> fetchRows(String query, RowFetcher<T> fetcher) {
 
-    Connection connection = connectionProvider.getConnection();
+    Connection connection = connectionProvider.get();
 
     List<T> result = new ArrayList<T>();
     try {
@@ -143,7 +140,7 @@ public class DataStore {
 
   public <T> T fetchRow(String query, RowFetcher<T> fetcher) {
 
-    Connection connection = connectionProvider.getConnection();
+    Connection connection = connectionProvider.get();
 
     T rowItem = null;
 

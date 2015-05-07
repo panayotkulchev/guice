@@ -14,6 +14,8 @@ import core.*;
 
 import javax.inject.Provider;
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,7 +34,6 @@ public class AppConfig extends GuiceServletContextListener {
                 new ServletModule() {
                     @Override
                     protected void configureServlets() {
-                        filter("/*").through(ConnectionFilter.class);
 
                         filter("/login").through(LoginFilter.class);
 
@@ -67,8 +68,6 @@ public class AppConfig extends GuiceServletContextListener {
                     @Override
                     protected void configure() {
 
-                        bind(ConnectionProvider.class).to(JdbcConnectionProvider.class);
-
                         bind(SessionRepository.class).to(PersistentSessionRepository.class);
 
                         bind(UserRepository.class).to(PersistentUserRepository.class);
@@ -97,6 +96,25 @@ public class AppConfig extends GuiceServletContextListener {
                             add("/deposit");
                             add(("/report"));
                         }};
+                    }
+
+                    @Provides
+                    @RequestScoped
+                    public Connection getConnection(){
+
+                        Connection connection = null;
+                        String dbHost = DatabaseMetadata.get("db.host");
+                        String dbUsername = DatabaseMetadata.get("db.username");
+                        String dbPassword = DatabaseMetadata.get("db.password");
+
+                        try {
+                            connection = DriverManager.getConnection(dbHost, dbUsername, dbPassword);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        return connection;
                     }
 
                 });

@@ -21,7 +21,7 @@ public class JettyRunner {
 
         try {
 
-            new SessionCleanUpScheduler().start();
+//            new SessionCleanUpScheduler().start();
 
             server = new Server(8088);
             ServletHolder jspSH = new ServletHolder(JspServlet.class);
