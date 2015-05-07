@@ -9,11 +9,11 @@ import java.util.List;
  */
 public interface FundsRepository {
 
-  Integer getAmount(Integer userPk);
+  Integer getAmount(Integer userId);
 
-  void deposit(Integer userPk, Integer amount);
+  void deposit(Integer userId, Integer amount);
 
-  boolean withdraw(Integer userPk, Integer amount);
+  boolean withdraw(Integer userId, Integer amount);
 
   void createAccount(Integer id);
 
@@ -23,7 +23,7 @@ public interface FundsRepository {
 
   List<OperationHistory> getAllHistory(Integer userPk);
 
-  List<OperationHistory> getHistoryByPages(Integer userPk, Integer start, Integer end);
+  List<OperationHistory> getHistoryByPages(Integer userId, Integer start, Integer end);
 
   Integer countRecords(Integer userId);
 }
