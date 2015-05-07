@@ -1,6 +1,7 @@
 package adapter.db;
 
 
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
@@ -28,12 +29,10 @@ public class DataStore {
 
 
     public void execute(String... queries) {
-
-        Connection connection = connectionProvider.get();
-        Statement statement;
         try {
 
-            statement = connection.createStatement();
+            Connection connection = connectionProvider.get();
+            Statement statement = connection.createStatement();
             for (String query : queries) {
                 statement.execute(query);
             }
@@ -43,24 +42,19 @@ public class DataStore {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public void executeQuery(String query, Object... objects) {
-
-        Connection connection = connectionProvider.get();
-
-        PreparedStatement statement;
-        int index = 0;
         try {
 
-            statement = connection.prepareStatement(query);
+            int index = 0;
+            Connection connection = connectionProvider.get();
+            PreparedStatement statement = connection.prepareStatement(query);
             for (Object object : objects) {
                 statement.setObject(++index, object);
             }
 
             statement.execute();
-
             statement.close();
 
         } catch (SQLException e) {
@@ -72,15 +66,14 @@ public class DataStore {
 
 
     public Integer executeCount(String query) {
-        Connection connection = connectionProvider.get();
 
-        Statement statement;
-        ResultSet resultSet;
-        Integer result = 0;
+        Integer result=0;
         try {
 
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            Connection connection = connectionProvider.get();
+            Statement  statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
             resultSet.next();
             result = resultSet.getInt(1);
 
@@ -95,11 +88,10 @@ public class DataStore {
 
     public <T> List<T> fetchRows(String query, RowFetcher<T> fetcher) {
 
-        Connection connection = connectionProvider.get();
-
-        List<T> result = new ArrayList<T>();
+        List<T> result = Lists.newArrayList();
         try {
 
+            Connection connection = connectionProvider.get();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
@@ -120,18 +112,15 @@ public class DataStore {
 
     public <T> T fetchRow(String query, RowFetcher<T> fetcher) {
 
-        Connection connection = connectionProvider.get();
-
         T rowItem = null;
 
         try {
-
+            Connection connection = connectionProvider.get();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             rs.next();
             rowItem = fetcher.fetchRow(rs);
-
 
             stmt.close();
 

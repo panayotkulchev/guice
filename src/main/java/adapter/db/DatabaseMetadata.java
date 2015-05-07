@@ -12,19 +12,15 @@ import java.util.Properties;
 
 public class DatabaseMetadata {
 
-
-    public static String get(String propertyName) {
+    public String get(String propertyName) {
 
         Properties prop = new Properties();
         try {
-
             prop.load(new FileInputStream(new File("src/main/resources/configuration.properties")));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return  prop.getProperty(propertyName);
     }
-
 }

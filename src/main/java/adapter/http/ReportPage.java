@@ -1,15 +1,12 @@
 package adapter.http;
 
 import adapter.db.ConfigurationProperites;
-import adapter.db.DatabaseMetadata;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.sitebricks.At;
 import com.google.sitebricks.Show;
 import com.google.sitebricks.http.Get;
 import core.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -30,24 +27,24 @@ public class ReportPage {
 
     private final UserRepository userRepository;
     private final FundsHistoryRepository fundsHistoryRepository;
-    private final Provider<HttpServletRequest> requestProvider;
+    private final SidFetcher sidFetcher;
 
 
     @Inject
     public ReportPage(UserRepository userRepository,
                       FundsHistoryRepository fundsHistoryRepository,
-                      Provider<HttpServletRequest> requestProvider) {
+                      SidFetcher sidFetcher) {
 
         this.userRepository = userRepository;
         this.fundsHistoryRepository = fundsHistoryRepository;
-        this.requestProvider = requestProvider;
+        this.sidFetcher = sidFetcher;
     }
 
     @Get
     public void getPages() {
 
-        HttpServletRequest request = requestProvider.get();
-        String sid = SidProvider.getSid(request);
+        String sid = sidFetcher.fetch();
+
         Integer userId = userRepository.getBySid(sid).id;
 
         Integer offset = ConfigurationProperites.get("recordsPerPage");

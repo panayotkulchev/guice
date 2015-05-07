@@ -13,7 +13,7 @@ import com.google.sitebricks.Show;
 import com.google.sitebricks.http.Post;
 import core.AuthorizationResult;
 import core.SessionRepository;
-import core.SidProvider;
+import core.SidFetcher;
 import core.UserRepository;
 
 import javax.servlet.http.Cookie;
@@ -42,17 +42,19 @@ public class LoginPage {
     private final Provider<HttpServletResponse> responseProvider;
     private final UserRepository userRepository;
     private final SessionRepository sessionRepository;
+    private final SidFetcher sidFetcher;
 
     @Inject
     public LoginPage(Provider<HttpServletRequest> requestProvider,
                      Provider<HttpServletResponse> responseProvider,
                      UserRepository userRepository,
-                     SessionRepository sessionRepository) {
+                     SessionRepository sessionRepository, SidFetcher sidFetcher) {
 
         this.requestProvider = requestProvider;
         this.responseProvider = responseProvider;
         this.userRepository = userRepository;
         this.sessionRepository = sessionRepository;
+        this.sidFetcher = sidFetcher;
     }
 
     @Post
@@ -81,7 +83,7 @@ public class LoginPage {
         }
 
 
-        String sid = SidProvider.getSid(request);
+        String sid = sidFetcher.fetch();
 
         if (sid == null || !sessionRepository.isExisting(sid)) {
             UUID uuid = new UUID(10, 5);

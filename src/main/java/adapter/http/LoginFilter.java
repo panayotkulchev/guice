@@ -4,7 +4,7 @@ import adapter.db.*;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import core.SessionRepository;
-import core.SidProvider;
+import core.SidFetcher;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,7 +13,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -27,20 +26,22 @@ import java.io.IOException;
 public class LoginFilter implements Filter {
 
   private final SessionRepository sessionRepository;
+  private final SidFetcher sidFetcher;
 
   @Inject
-  public LoginFilter(SessionRepository sessionRepository) {
+  public LoginFilter(SessionRepository sessionRepository, SidFetcher sidFetcher) {
     this.sessionRepository = sessionRepository;
+    this.sidFetcher = sidFetcher;
   }
 
   public void init(FilterConfig config) throws ServletException {
   }
 
   public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-    HttpServletRequest request = (HttpServletRequest) req;
+
     HttpServletResponse response = (HttpServletResponse) resp;
 
-    String sid = SidProvider.getSid(request);
+    String sid = sidFetcher.fetch();
 
     if (sid == null || !sessionRepository.isExisting(sid)) {
       chain.doFilter(req, resp);

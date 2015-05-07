@@ -6,7 +6,7 @@ import com.google.sitebricks.At;
 import com.google.sitebricks.Show;
 import com.google.sitebricks.http.Get;
 import core.SessionRepository;
-import core.SidProvider;
+import core.SidFetcher;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -25,15 +25,18 @@ public class LogoutPage {
   private final Provider<HttpServletRequest> requestProvider;
   private final Provider<HttpServletResponse> responseProvider;
   private final SessionRepository sessionRepository;
+  private final SidFetcher sidFetcher;
 
   @Inject
   public LogoutPage(Provider<HttpServletRequest> requestProvider,
                     Provider<HttpServletResponse> responseProvider,
-                    SessionRepository sessionRepository) {
+                    SessionRepository sessionRepository,
+                    SidFetcher sidFetcher) {
 
     this.requestProvider = requestProvider;
     this.responseProvider = responseProvider;
     this.sessionRepository = sessionRepository;
+    this.sidFetcher = sidFetcher;
   }
 
   @Get
@@ -41,7 +44,7 @@ public class LogoutPage {
 
     HttpServletRequest request = requestProvider.get();
     HttpServletResponse response = responseProvider.get();
-    String sid = SidProvider.getSid(request);
+    String sid = sidFetcher.fetch();
 
     if (sid != null) {
 

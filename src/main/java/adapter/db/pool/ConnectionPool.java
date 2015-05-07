@@ -2,6 +2,7 @@ package adapter.db.pool;
 
 import adapter.db.ConfigurationProperites;
 import adapter.db.DatabaseMetadata;
+import com.google.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +17,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class ConnectionPool implements Pool<Connection> {
 
+//    private final DatabaseMetadata databaseMetadata;
     private Logger logger = LoggerFactory.getLogger(ConnectionPool.class);
 
 
@@ -24,7 +26,9 @@ public class ConnectionPool implements Pool<Connection> {
 
     private static ConnectionPool instance = new ConnectionPool();
 
-    private ConnectionPool() {
+//    @Inject
+    private ConnectionPool(/*DatabaseMetadata databaseMetadata*/) {
+//        this.databaseMetadata = databaseMetadata;
 
         availableConnections = new ConcurrentLinkedQueue<Connection>();
 
@@ -62,12 +66,12 @@ public class ConnectionPool implements Pool<Connection> {
     public Connection getConnection() {
         Connection connection = null;
 
-        String dbHost = DatabaseMetadata.get("db.host");
-        String dbUsername = DatabaseMetadata.get("db.username");
-        String dbPassword = DatabaseMetadata.get("db.password");
+//        String dbHost = databaseMetadata.get("db.host");
+//        String dbUsername = databaseMetadata.get("db.username");
+//        String dbPassword = databaseMetadata.get("db.password");
 
         try {
-            connection = DriverManager.getConnection(dbHost, dbUsername, dbPassword);
+//            connection = DriverManager.getConnection(dbHost, dbUsername, dbPassword);
 
         } catch (Exception e) {
             e.printStackTrace();

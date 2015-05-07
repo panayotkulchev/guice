@@ -2,18 +2,13 @@ import adapter.db.*;
 import adapter.http.*;
 import adapter.http.bank.DepositPage;
 import adapter.http.bank.WithdrawPage;
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Provides;
+import com.google.inject.*;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.RequestScoped;
 import com.google.inject.servlet.ServletModule;
 import com.google.sitebricks.SitebricksModule;
 import core.*;
 
-import javax.inject.Provider;
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.HashSet;
@@ -82,9 +77,9 @@ public class AppConfig extends GuiceServletContextListener {
                     @Provides
                     @RequestScoped
 
-                    public CurrentUser getCurrentUser(Provider<HttpServletRequest> requestProvider, UserRepository userRepository) {
+                    public CurrentUser getCurrentUser(SidFetcher sidFetcher, UserRepository userRepository) {
 
-                        String sid = SidProvider.getSid(requestProvider.get());
+                        String sid = sidFetcher.fetch();
 
                         return userRepository.getBySid(sid);
                     }
@@ -100,12 +95,13 @@ public class AppConfig extends GuiceServletContextListener {
 
                     @Provides
                     @RequestScoped
-                    public Connection getConnection(){
+                    public Connection getConnection(DatabaseMetadata databaseMetadata) {
 
                         Connection connection = null;
-                        String dbHost = DatabaseMetadata.get("db.host");
-                        String dbUsername = DatabaseMetadata.get("db.username");
-                        String dbPassword = DatabaseMetadata.get("db.password");
+
+                        String dbHost = databaseMetadata.get("db.host");
+                        String dbUsername = databaseMetadata.get("db.username");
+                        String dbPassword = databaseMetadata.get("db.password");
 
                         try {
                             connection = DriverManager.getConnection(dbHost, dbUsername, dbPassword);
@@ -115,6 +111,13 @@ public class AppConfig extends GuiceServletContextListener {
                         }
 
                         return connection;
+                    }
+
+                    @Provides
+                    @Singleton
+                    public DatabaseMetadata provideDatabaseMetadata() {
+
+                        return new DatabaseMetadata();
                     }
 
                 });
