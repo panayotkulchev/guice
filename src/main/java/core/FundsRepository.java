@@ -9,21 +9,13 @@ import java.util.List;
  */
 public interface FundsRepository {
 
-  Integer getAmount(Integer userId);
+    void createAccount(Integer id);
 
-  void deposit(Integer userId, Integer amount);
+    Integer getAmount(Integer userId);
 
-  boolean withdraw(Integer userId, Integer amount);
+    void deposit(Integer userId, Integer amount);
 
-  void createAccount(Integer id);
+    boolean withdraw(Integer userId, Integer amount);
 
-  List<OperationHistory> getWithdrawHistory(Integer userPk);
 
-  List<OperationHistory> getDepositHistory(Integer userPk);
-
-  List<OperationHistory> getAllHistory(Integer userPk);
-
-  List<OperationHistory> getHistoryByPages(Integer userId, Integer start, Integer end);
-
-  Integer countRecords(Integer userId);
 }

@@ -73,6 +73,8 @@ public class AppConfig extends GuiceServletContextListener {
 
                         bind(FundsRepository.class).to(PersistentFundsRepository.class);
 
+                        bind(FundsHistoryRepository.class).to(PersistentFundsHistoryRepository.class);
+
                     }
 
 

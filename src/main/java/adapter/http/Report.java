@@ -6,10 +6,7 @@ import com.google.inject.Provider;
 import com.google.sitebricks.At;
 import com.google.sitebricks.Show;
 import com.google.sitebricks.http.Get;
-import core.FundsRepository;
-import core.OperationHistory;
-import core.SidProvider;
-import core.UserRepository;
+import core.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -31,17 +28,17 @@ public class Report {
     public List<OperationHistory> histories;
 
     private final UserRepository userRepository;
-    private final FundsRepository fundsRepository;
+    private final FundsHistoryRepository fundsHistoryRepository;
     private final Provider<HttpServletRequest> requestProvider;
 
 
     @Inject
     public Report(UserRepository userRepository,
-                  FundsRepository fundsRepository,
+                  FundsHistoryRepository fundsHistoryRepository,
                   Provider<HttpServletRequest> requestProvider) {
 
         this.userRepository = userRepository;
-        this.fundsRepository = fundsRepository;
+        this.fundsHistoryRepository = fundsHistoryRepository;
         this.requestProvider = requestProvider;
     }
 
@@ -56,9 +53,9 @@ public class Report {
 
         Integer start = (page - 1) * 5;
 
-        histories = fundsRepository.getHistoryByPages(userId, start, offset);
+        histories = fundsHistoryRepository.getHistoryByPages(userId, start, offset);
 
-        Integer numOfRecords = fundsRepository.countRecords(userId);
+        Integer numOfRecords = fundsHistoryRepository.countRecords(userId);
 
         numOfPages = numOfRecords / offset;
         if (numOfRecords % offset != 0) {
