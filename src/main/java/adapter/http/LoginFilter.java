@@ -2,7 +2,6 @@ package adapter.http;
 
 import adapter.db.*;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import core.SessionRepository;
 import core.SidProvider;
@@ -49,10 +48,11 @@ public class LoginFilter implements Filter {
 
     } else {
       Cookie cookie = new Cookie("sid", sid);
-      cookie.setMaxAge(ConfigurationProperties.get("sessionRefreshRate") / 1000);
+      Integer sessionRefreshRate = ConfigurationProperites.get("sessionRefreshRate");
+      cookie.setMaxAge(sessionRefreshRate / 1000);
       response.addCookie(cookie);
 
-      sessionRepository.refresh(sid, System.currentTimeMillis() + ConfigurationProperties.get("sessionRefreshRate"));
+      sessionRepository.refresh(sid, System.currentTimeMillis() + sessionRefreshRate);
       response.sendRedirect("/welcome");
 
     }

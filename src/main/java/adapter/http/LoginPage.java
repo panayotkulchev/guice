@@ -1,6 +1,7 @@
 package adapter.http;
 
-import adapter.db.ConfigurationProperties;
+import adapter.db.ConfigurationProperites;
+import adapter.db.DatabaseMetadata;
 import adapter.http.validator.RegexValidator;
 import adapter.http.validator.RequestImpl;
 import adapter.http.validator.Rule;
@@ -87,7 +88,7 @@ public class LoginPage {
             String randomValue = "panayotkulchev@gmail.com" + uuid.randomUUID().toString() + "abc";
             sid = sha1(randomValue);
             Cookie cookie = new Cookie("sid", sid);
-            cookie.setMaxAge(ConfigurationProperties.get("sessionRefreshRate"));
+            cookie.setMaxAge(ConfigurationProperites.get("sessionRefreshRate"));
             response.addCookie(cookie);
             sessionRepository.create(authorizationResult.getUser().id, sid);
         }

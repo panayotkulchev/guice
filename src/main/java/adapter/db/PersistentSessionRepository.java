@@ -1,11 +1,7 @@
 package adapter.db;
 
 import com.google.inject.Inject;
-import core.Session;
 import core.SessionRepository;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * Created on 15-5-5.
@@ -42,7 +38,7 @@ public class PersistentSessionRepository implements SessionRepository {
   @Override
   public void create(Integer userId, String sid) {
     dataStore.executeQery("INSERT into bank.session(user_fk,sid,expiration_time) values (?,?,?);",
-            userId, sid, System.currentTimeMillis()+ConfigurationProperties.get("sessionRefreshRate")); //TODO think about adding sesTime so can escape refresh after create
+            userId, sid, System.currentTimeMillis()+ ConfigurationProperites.get("sessionRefreshRate"));
   }
 
   @Override

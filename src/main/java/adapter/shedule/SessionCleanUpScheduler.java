@@ -1,6 +1,7 @@
 package adapter.shedule;
 
-import adapter.db.ConfigurationProperties;
+import adapter.db.ConfigurationProperites;
+import adapter.db.DatabaseMetadata;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
@@ -22,6 +23,8 @@ public class SessionCleanUpScheduler {
     public void start() throws SchedulerException {
 
         Scheduler scheduler = new StdSchedulerFactory().getScheduler();
+        Integer sessionCleanUpRate = ConfigurationProperites.get("sessionCleanUpRate");
+
 
         JobDetail job = newJob(SessionCleanUpJob.class)
                 .withIdentity("job1", "group1")
@@ -31,7 +34,7 @@ public class SessionCleanUpScheduler {
                 .withIdentity("trigger1", "group1")
                 .startNow()
                 .withSchedule(simpleSchedule()
-                        .withIntervalInSeconds(ConfigurationProperties.get("sessionCleanUpRate"))
+                        .withIntervalInSeconds(sessionCleanUpRate)
                         .repeatForever())
                 .build();
 

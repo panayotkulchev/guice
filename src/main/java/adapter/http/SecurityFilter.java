@@ -1,6 +1,7 @@
 package adapter.http;
 
-import adapter.db.ConfigurationProperties;
+import adapter.db.ConfigurationProperites;
+import adapter.db.DatabaseMetadata;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import core.SessionRepository;
@@ -43,10 +44,12 @@ public class SecurityFilter implements Filter {
 
         } else {
             Cookie cookie = new Cookie("sid", sid);
-            cookie.setMaxAge(ConfigurationProperties.get("sessionRefreshRate") / 1000);
+
+            Integer sessionRefreshRate = ConfigurationProperites.get("sessionRefreshRate");
+            cookie.setMaxAge(sessionRefreshRate / 1000);
             response.addCookie(cookie);
 
-            sessionRepository.refresh(sid, System.currentTimeMillis() + ConfigurationProperties.get("sessionRefreshRate"));
+            sessionRepository.refresh(sid, System.currentTimeMillis() + sessionRefreshRate);
 
             chain.doFilter(req, resp);
         }

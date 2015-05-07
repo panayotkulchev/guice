@@ -1,6 +1,7 @@
 package adapter.http;
 
-import adapter.db.ConfigurationProperties;
+import adapter.db.ConfigurationProperites;
+import adapter.db.DatabaseMetadata;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.sitebricks.At;
@@ -49,7 +50,7 @@ public class ReportPage {
         String sid = SidProvider.getSid(request);
         Integer userId = userRepository.getBySid(sid).id;
 
-        Integer offset = ConfigurationProperties.get("recordsPerPage");
+        Integer offset = ConfigurationProperites.get("recordsPerPage");
 
         Integer start = (page - 1) * 5;
 

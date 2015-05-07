@@ -1,6 +1,7 @@
 package adapter.db.pool;
 
-import adapter.db.ConfigurationProperties;
+import adapter.db.ConfigurationProperites;
+import adapter.db.DatabaseMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +28,7 @@ public class ConnectionPool implements Pool<Connection> {
 
         availableConnections = new ConcurrentLinkedQueue<Connection>();
 
-        Integer numbOfConnections = ConfigurationProperties.get("numberConnectionsInPool");
+        Integer numbOfConnections = ConfigurationProperites.get("numberConnectionsInPool");
 
         for (int i = 0; i < numbOfConnections; i++) {
             availableConnections.add(getConnection());
@@ -60,8 +61,14 @@ public class ConnectionPool implements Pool<Connection> {
 
     public Connection getConnection() {
         Connection connection = null;
+
+        String dbHost = DatabaseMetadata.get("db.host");
+        String dbUsername = DatabaseMetadata.get("db.username");
+        String dbPassword = DatabaseMetadata.get("db.password");
+
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank", "root", "root");
+            connection = DriverManager.getConnection(dbHost, dbUsername, dbPassword);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
