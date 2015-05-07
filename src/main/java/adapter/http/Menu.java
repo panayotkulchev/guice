@@ -16,18 +16,21 @@ import core.*;
 @EmbedAs("Menu")
 public class Menu {
 
-  public Integer onlineUsersNumber;
-  public Integer userAmount;
-  public String userEmail;
+  private Integer userAmount;
+  private String userEmail;
+  private final CurrentUser currentUser;
 
 
   @Inject
-  public Menu(SessionRepository sessionRepository,
-              CurrentUser currentUser) {
+  public Menu(CurrentUser currentUser) {
+    this.currentUser = currentUser;
+  }
 
-    onlineUsersNumber = sessionRepository.count();
-    userEmail=currentUser.email;
-    userAmount=currentUser.amount;
+  public Integer getUserAmount() {
+    return currentUser.amount;
+  }
 
+  public String getUserEmail() {
+    return currentUser.email;
   }
 }

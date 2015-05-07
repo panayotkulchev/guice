@@ -47,7 +47,7 @@ public class RegisterPage {
 
 
   @Post
-  private Object doPost() {
+  private String register() {
 
     List<Rule> rules = new ArrayList<Rule>();
     rules.add(new ValidationRule("email", "Email is not valid", "^[a-z]{3,30}+$"));

@@ -56,7 +56,7 @@ public class LoginPage {
     }
 
     @Post
-    public String doPost() {
+    public String login() {
 
         List<Rule> rules = new ArrayList<Rule>();
         rules.add(new ValidationRule("email", "Email is not valid", "^[a-z]{3,30}+$"));
