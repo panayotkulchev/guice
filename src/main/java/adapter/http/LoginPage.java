@@ -1,11 +1,11 @@
 package adapter.http;
 
 import adapter.db.ConfigurationProperites;
-import adapter.db.DatabaseMetadata;
 import adapter.http.validator.RegexValidator;
 import adapter.http.validator.RequestImpl;
 import adapter.http.validator.Rule;
 import adapter.http.validator.ValidationRule;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.sitebricks.At;
@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -59,7 +58,8 @@ public class LoginPage {
     @Post
     public String login() {
 
-        List<Rule> rules = new ArrayList<Rule>();
+        List<Rule> rules = Lists.newArrayList();
+
         rules.add(new ValidationRule("email", "Email is not valid", "^[a-z]{3,30}+$"));
         rules.add(new ValidationRule("password", "Password is not valid", "^[a-z]{3,10}+$"));
 
