@@ -28,7 +28,6 @@ public class RegexValidator {
 
             if (!each.isValid(value)) {
                 errorList.add(each.errorMessage());
-              System.out.println(value+" is NOT VALID");
             }
         }
         return errorList;
