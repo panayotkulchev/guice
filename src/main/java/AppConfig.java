@@ -1,13 +1,11 @@
 import adapter.db.*;
 import adapter.http.*;
-import adapter.http.bank.Deposit;
-import adapter.http.bank.Withdraw;
-import adapter.shedule.SchedulerConnectionProvider;
+import adapter.http.bank.DepositPage;
+import adapter.http.bank.WithdrawPage;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Provides;
-import com.google.inject.name.Names;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.RequestScoped;
 import com.google.inject.servlet.ServletModule;
@@ -34,12 +32,15 @@ public class AppConfig extends GuiceServletContextListener {
                     @Override
                     protected void configureServlets() {
                         filter("/*").through(ConnectionFilter.class);
+
                         filter("/login").through(LoginFilter.class);
+
                         filter("/welcome").through(SecurityFilter.class);
                         filter("/withdraw").through(SecurityFilter.class);
                         filter("/deposit").through(SecurityFilter.class);
                         filter("/menu").through(SecurityFilter.class);
                         filter("/report").through(SecurityFilter.class);
+
                         filter("/withdraw").through(CacheFilter.class);
                     }
                 },
@@ -48,14 +49,14 @@ public class AppConfig extends GuiceServletContextListener {
                     @Override
                     protected void configureSitebricks() {
 
-                        at("/register").show(Register.class);
-                        at("/login").show(Login.class);
-                        at("/welcome").show(Welcome.class);
-                        at("/deposit").show(Deposit.class);
-                        at("/withdraw").show(Withdraw.class);
-                        at("/logout").show(Logout.class);
+                        at("/register").show(RegisterPage.class);
+                        at("/login").show(LoginPage.class);
+                        at("/welcome").show(WelcomePage.class);
+                        at("/deposit").show(DepositPage.class);
+                        at("/withdraw").show(WithdrawPage.class);
+                        at("/logout").show(LogoutPage.class);
                         at("/menu").show(Menu.class);
-                        at("/report").show(Report.class);
+                        at("/report").show(ReportPage.class);
 
                         embed(Menu.class).as("Menu");
                     }

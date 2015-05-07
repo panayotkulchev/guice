@@ -16,7 +16,7 @@ import core.FundsRepository;
 
 @At("/deposit")
 @Show("deposit.html")
-public class Deposit {
+public class DepositPage {
 
   public String message;
   public String amount;
@@ -26,8 +26,8 @@ public class Deposit {
 
 
   @Inject
-  public Deposit(Provider<CurrentUser> currentUser,
-                 FundsRepository fundsRepository) {
+  public DepositPage(Provider<CurrentUser> currentUser,
+                     FundsRepository fundsRepository) {
 
     this.currentUser = currentUser;
     this.fundsRepository = fundsRepository;

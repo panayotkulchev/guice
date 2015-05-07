@@ -20,16 +20,16 @@ import javax.servlet.http.HttpServletResponse;
 
 @At("/logout")
 @Show("logout.html")
-public class Logout {
+public class LogoutPage {
 
   private final Provider<HttpServletRequest> requestProvider;
   private final Provider<HttpServletResponse> responseProvider;
   private final SessionRepository sessionRepository;
 
   @Inject
-  public Logout(Provider<HttpServletRequest> requestProvider,
-                Provider<HttpServletResponse> responseProvider,
-                SessionRepository sessionRepository) {
+  public LogoutPage(Provider<HttpServletRequest> requestProvider,
+                    Provider<HttpServletResponse> responseProvider,
+                    SessionRepository sessionRepository) {
 
     this.requestProvider = requestProvider;
     this.responseProvider = responseProvider;

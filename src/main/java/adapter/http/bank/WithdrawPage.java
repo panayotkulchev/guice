@@ -16,7 +16,7 @@ import core.FundsRepository;
 
 @At("/withdraw")
 @Show("withdraw.html")
-public class Withdraw {
+public class WithdrawPage {
 
   public String message;
   public String amount;
@@ -25,8 +25,8 @@ public class Withdraw {
   private final FundsRepository fundsRepository;
 
   @Inject
-  public Withdraw(Provider<CurrentUser> currentUser,
-                  FundsRepository fundsRepository) {
+  public WithdrawPage(Provider<CurrentUser> currentUser,
+                      FundsRepository fundsRepository) {
     this.fundsRepository = fundsRepository;
     this.currentUser = currentUser;
   }

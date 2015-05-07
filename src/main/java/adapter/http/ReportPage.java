@@ -19,7 +19,7 @@ import java.util.List;
 
 @At("/report")
 @Show("report.html")
-public class Report {
+public class ReportPage {
 
     public Integer page = 1;
     public Integer numOfPages;
@@ -33,9 +33,9 @@ public class Report {
 
 
     @Inject
-    public Report(UserRepository userRepository,
-                  FundsHistoryRepository fundsHistoryRepository,
-                  Provider<HttpServletRequest> requestProvider) {
+    public ReportPage(UserRepository userRepository,
+                      FundsHistoryRepository fundsHistoryRepository,
+                      Provider<HttpServletRequest> requestProvider) {
 
         this.userRepository = userRepository;
         this.fundsHistoryRepository = fundsHistoryRepository;

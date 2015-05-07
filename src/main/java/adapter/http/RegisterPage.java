@@ -25,7 +25,7 @@ import java.util.List;
 @At("/register")
 @Show("register.html")
 
-public class Register {
+public class RegisterPage {
 
   public String email;
   public String password;
@@ -36,9 +36,9 @@ public class Register {
   private final UserRepository userRepository;
 
   @Inject
-  public Register(UserRepository userRepository,
-                  FundsRepository fundsRepository,
-                  Provider<HttpServletRequest> requestProvider) {
+  public RegisterPage(UserRepository userRepository,
+                      FundsRepository fundsRepository,
+                      Provider<HttpServletRequest> requestProvider) {
 
     this.userRepository = userRepository;
     this.fundsRepository = fundsRepository;

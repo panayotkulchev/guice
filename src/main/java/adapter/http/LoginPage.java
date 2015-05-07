@@ -32,7 +32,7 @@ import java.util.UUID;
 
 @At("/login")
 @Show("login.html")
-public class Login {
+public class LoginPage {
 
     public String email;
     public String password;
@@ -44,10 +44,10 @@ public class Login {
     private final SessionRepository sessionRepository;
 
     @Inject
-    public Login(Provider<HttpServletRequest> requestProvider,
-                 Provider<HttpServletResponse> responseProvider,
-                 UserRepository userRepository,
-                 SessionRepository sessionRepository) {
+    public LoginPage(Provider<HttpServletRequest> requestProvider,
+                     Provider<HttpServletResponse> responseProvider,
+                     UserRepository userRepository,
+                     SessionRepository sessionRepository) {
 
         this.requestProvider = requestProvider;
         this.responseProvider = responseProvider;
