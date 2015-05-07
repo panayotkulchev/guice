@@ -15,5 +15,3 @@ hs_err_pid*
 *.iml
 README.md
 target/
-src/main/webapp/css/
-src/main/webapp/kickstart/

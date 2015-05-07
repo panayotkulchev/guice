@@ -43,7 +43,6 @@ public class DataStore {
       }
 
       statement.close();
-//        connection.close();
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -72,7 +71,6 @@ public class DataStore {
         statement.execute();
 
         statement.close();
-//        connection.close();
 
 
       } catch (IncorrectMethodParamsException e) {
@@ -87,7 +85,7 @@ public class DataStore {
   public Integer executeCount(String query) {
     Connection connection = connectionProvider.getConnection();
     Statement statement;
-    ResultSet resultSet = null;
+    ResultSet resultSet;
     Integer result = 0;
     try {
 
@@ -97,7 +95,6 @@ public class DataStore {
       result = resultSet.getInt(1);
 
       statement.close();
-//        connection.close();
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -136,7 +133,6 @@ public class DataStore {
       }
 
       stmt.close();
-//      connection.close();
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -161,13 +157,12 @@ public class DataStore {
 
 
       stmt.close();
-//      connection.close();
 
     } catch (SQLException e) {
       e.printStackTrace();
     }
 
-    return /*result*/rowItem;
+    return rowItem;
   }
 
   private class IncorrectMethodParamsException extends RuntimeException {
