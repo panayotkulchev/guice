@@ -42,7 +42,7 @@ public class PersistentSessionRepository implements SessionRepository {
   @Override
   public void create(Integer userId, String sid) {
     dataStore.executeQery("INSERT into bank.session(user_fk,sid,expiration_time) values (?,?,?);",
-            userId, sid, System.currentTimeMillis()+SessionProperties.get("sessionRefreshRate")); //TODO think about adding sesTime so can escape refresh after create
+            userId, sid, System.currentTimeMillis()+ConfigurationProperties.get("sessionRefreshRate")); //TODO think about adding sesTime so can escape refresh after create
   }
 
   @Override

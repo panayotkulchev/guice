@@ -1,12 +1,15 @@
 package adapter.http;
 
-import adapter.db.PageProperties;
+import adapter.db.ConfigurationProperties;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.sitebricks.At;
 import com.google.sitebricks.Show;
 import com.google.sitebricks.http.Get;
-import core.*;
+import core.FundsRepository;
+import core.OperationHistory;
+import core.SidProvider;
+import core.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -49,7 +52,7 @@ public class Report {
         String sid = SidProvider.getSid(request);
         Integer userId = userRepository.getBySid(sid).id;
 
-        Integer offset = PageProperties.get("recordsPerPage");
+        Integer offset = ConfigurationProperties.get("recordsPerPage");
 
         Integer start = (page - 1) * 5;
 

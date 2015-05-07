@@ -1,17 +1,12 @@
 package adapter.http;
 
-import adapter.db.SessionProperties;
+import adapter.db.ConfigurationProperties;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import core.SessionRepository;
 import core.SidProvider;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,37 +21,37 @@ import java.io.IOException;
 @Singleton
 public class SecurityFilter implements Filter {
 
-  private final SessionRepository sessionRepository;
+    private final SessionRepository sessionRepository;
 
-  @Inject
-  public SecurityFilter(SessionRepository sessionRepository) {
-    this.sessionRepository = sessionRepository;
-  }
-
-  public void init(FilterConfig config) throws ServletException {
-  }
-
-  public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-
-    HttpServletRequest request = (HttpServletRequest) req;
-    HttpServletResponse response = (HttpServletResponse) resp;
-
-    String sid = SidProvider.getSid(request);
-
-    if (sid == null || !sessionRepository.isExisting(sid)) {
-      response.sendRedirect("/login?message=Session expired. Please login!");
-
-    } else {
-      Cookie cookie = new Cookie("sid", sid);
-      cookie.setMaxAge(SessionProperties.get("sessionRefreshRate") / 1000);
-      response.addCookie(cookie);
-
-      sessionRepository.refresh(sid, System.currentTimeMillis() + SessionProperties.get("sessionRefreshRate"));
-
-      chain.doFilter(req, resp);
+    @Inject
+    public SecurityFilter(SessionRepository sessionRepository) {
+        this.sessionRepository = sessionRepository;
     }
-  }
 
-  public void destroy() {
-  }
+    public void init(FilterConfig config) throws ServletException {
+    }
+
+    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
+
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) resp;
+
+        String sid = SidProvider.getSid(request);
+
+        if (sid == null || !sessionRepository.isExisting(sid)) {
+            response.sendRedirect("/login?message=Session expired. Please login!");
+
+        } else {
+            Cookie cookie = new Cookie("sid", sid);
+            cookie.setMaxAge(ConfigurationProperties.get("sessionRefreshRate") / 1000);
+            response.addCookie(cookie);
+
+            sessionRepository.refresh(sid, System.currentTimeMillis() + ConfigurationProperties.get("sessionRefreshRate"));
+
+            chain.doFilter(req, resp);
+        }
+    }
+
+    public void destroy() {
+    }
 }

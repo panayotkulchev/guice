@@ -1,17 +1,14 @@
 package adapter.shedule;
 
-import adapter.db.SessionProperties;
+import adapter.db.ConfigurationProperties;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 
-import static org.quartz.JobBuilder.*;
 import static org.quartz.JobBuilder.newJob;
-import static org.quartz.SimpleScheduleBuilder.*;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
-import static org.quartz.TriggerBuilder.*;
 import static org.quartz.TriggerBuilder.newTrigger;
 
 /**
@@ -21,27 +18,27 @@ import static org.quartz.TriggerBuilder.newTrigger;
  */
 public class SessionCleanUpScheduler {
 
-  public void start () throws SchedulerException {
+    public void start() throws SchedulerException {
 
-    Scheduler scheduler=new StdSchedulerFactory().getScheduler();
+        Scheduler scheduler = new StdSchedulerFactory().getScheduler();
 
-    JobDetail job = newJob(SessionCleanUpJob.class)
-            .withIdentity("job1", "group1")
-            .build();
+        JobDetail job = newJob(SessionCleanUpJob.class)
+                .withIdentity("job1", "group1")
+                .build();
 
-    Trigger trigger = newTrigger()
-            .withIdentity("trigger1", "group1")
-            .startNow()
-            .withSchedule(simpleSchedule()
-                    .withIntervalInSeconds(SessionProperties.get("sessionCleanUpRate"))
-                    .repeatForever())
-            .build();
+        Trigger trigger = newTrigger()
+                .withIdentity("trigger1", "group1")
+                .startNow()
+                .withSchedule(simpleSchedule()
+                        .withIntervalInSeconds(ConfigurationProperties.get("sessionCleanUpRate"))
+                        .repeatForever())
+                .build();
 
-    scheduler.scheduleJob(job, trigger);
+        scheduler.scheduleJob(job, trigger);
 
-    scheduler.start();
+        scheduler.start();
 
-  }
+    }
 
 
 }

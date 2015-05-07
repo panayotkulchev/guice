@@ -1,9 +1,6 @@
 package adapter.http;
 
-import adapter.db.DataStore;
-import adapter.db.JdbcConnectionProvider;
-import adapter.db.PersistentSessionRepository;
-import adapter.db.SessionProperties;
+import adapter.db.*;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -52,10 +49,10 @@ public class LoginFilter implements Filter {
 
     } else {
       Cookie cookie = new Cookie("sid", sid);
-      cookie.setMaxAge(SessionProperties.get("sessionRefreshRate") / 1000);
+      cookie.setMaxAge(ConfigurationProperties.get("sessionRefreshRate") / 1000);
       response.addCookie(cookie);
 
-      sessionRepository.refresh(sid, System.currentTimeMillis() + SessionProperties.get("sessionRefreshRate"));
+      sessionRepository.refresh(sid, System.currentTimeMillis() + ConfigurationProperties.get("sessionRefreshRate"));
       response.sendRedirect("/welcome");
 
     }

@@ -5,18 +5,19 @@ import java.io.FileInputStream;
 import java.util.Properties;
 
 /**
- * Created by Panayot Kulchev on 15-5-2.
+ * Created by Panayot Kulchev on 15-5-7
  * e-mail: panayotkulchev@gmail.com
  * happy codding ...
  */
-public class PageProperties {
+
+public class ConfigurationProperties {
 
     public static Integer get(String propertyName) {
 
         Properties prop = new Properties();
         try {
 
-            prop.load(new FileInputStream(new File("src/main/resources/pagination.properties")));
+            prop.load(new FileInputStream(new File("src/main/resources/configuration.properties")));
 
         } catch (Exception e) {
             e.printStackTrace();
