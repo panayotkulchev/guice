@@ -53,7 +53,9 @@ public class PersistentUserRepository implements UserRepository {
     if (isExisting(email,password)){
       return new AuthorizationResult(getByEmail(email),true);
     }
-    else return new AuthorizationResult(null,false);
+    else {
+      return new AuthorizationResult(null,false);
+    }
   }
 
   @Override
