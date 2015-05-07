@@ -7,9 +7,9 @@ import com.google.sitebricks.rendering.EmbedAs;
 import core.*;
 
 /**
- * Created by Panayot Kulchev on 15-4-29.
- * e-mail: panayotkulchev@gmail.com
- * happy coding ...
+ * Created on 15-5-5.
+ *
+ * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
 
 @Show("menu.html")

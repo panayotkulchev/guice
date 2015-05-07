@@ -10,9 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by Panayot Kulchev on 15-3-31.
- * e-mail: panayotkulchev@gmail.com
- * happy coding ...
+ * Created on 15-5-5.
+ *
+ * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
 
 public class PersistentUserRepository implements UserRepository {

@@ -8,12 +8,9 @@
   <name>BankWithGuiceSiteBricks Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
-    <dependency>
-      <groupId>com.google.sitebricks</groupId>
-      <artifactId>sitebricks</artifactId>
-      <version>0.8.5</version>
-    </dependency>
 
+
+    <!--For testing-->
     <dependency>
 
       <groupId>junit</groupId>
@@ -21,6 +18,7 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
+
 
     <dependency>
 
@@ -30,8 +28,9 @@
       <scope>test</scope>
     </dependency>
 
+    <!--For server-->
     <dependency>
-      <groupId>org.eclipse.jetty</groupId>
+    <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-jsp</artifactId>
       <version>9.1.5.v20140505</version>
     </dependency>
@@ -40,6 +39,20 @@
       <groupId>org.eclipse.jetty.aggregate</groupId>
       <artifactId>jetty-webapp</artifactId>
       <version>8.1.15.v20140411</version>
+    </dependency>
+
+    <!--For DB-->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.34</version>
+    </dependency>
+
+    <!--For production-->
+    <dependency>
+      <groupId>com.google.sitebricks</groupId>
+      <artifactId>sitebricks</artifactId>
+      <version>0.8.5</version>
     </dependency>
 
     <dependency>
@@ -66,13 +79,8 @@
       <version>2.1.7</version>
     </dependency>
 
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.34</version>
-    </dependency>
-
   </dependencies>
+
   <build>
     <finalName>BankWithGuiceSiteBricks</finalName>
     <plugins>
@@ -87,4 +95,5 @@
       </plugin>
     </plugins>
   </build>
+  
 </project>

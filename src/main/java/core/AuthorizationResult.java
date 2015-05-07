@@ -1,10 +1,11 @@
 package core;
 
 /**
- * Created by Panayot Kulchev on 15-4-17.
- * e-mail: panayotkulchev@gmail.com
- * happy coding ...
+ * Created on 15-5-5.
+ *
+ * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
+
 public class AuthorizationResult {
 
   public final User user;

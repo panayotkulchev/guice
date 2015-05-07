@@ -12,6 +12,12 @@ import javax.servlet.ServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 
+/**
+ * Created on 15-5-5.
+ *
+ * @author Panayot Kulchev <panayotkulchev@gmail.com>
+ */
+
 @Singleton
 public class ConnectionFilter implements Filter {
 

@@ -4,10 +4,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by Panayot Kulchev on 15-4-17.
- * e-mail: panayotkulchev@gmail.com
- * happy coding ...
+ * Created on 15-5-5.
+ *
+ * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
+
 public class SidProvider {
 
   public static String getSid(HttpServletRequest request) {

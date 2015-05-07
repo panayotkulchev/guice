@@ -8,10 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created by Panayot Kulchev on 15-4-7.
- * e-mail: panayotkulchev@gmail.com
- * happy coding ...
+ * Created on 15-5-5.
+ *
+ * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
+
 public class SessionCleanUpJob implements Job {
 
     DataStore dataStore = new DataStore(new SchedulerConnectionProvider());

@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Created by Panayot Kulchev on 15-5-7
- * e-mail: panayotkulchev@gmail.com
- * happy codding ...
+ * Created on 15-5-5.
+ *
+ * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
 
 public class PersistentFundsHistoryRepository implements FundsHistoryRepository {

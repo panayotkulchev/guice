@@ -16,10 +16,11 @@ import java.io.IOException;
 import java.util.Set;
 
 /**
- * Created by Panayot Kulchev on 15-4-30.
- * e-mail: panayotkulchev@gmail.com
- * happy coding ...
+ * Created on 15-5-5.
+ *
+ * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
+
 @Singleton
 public class CacheFilter implements Filter {
 

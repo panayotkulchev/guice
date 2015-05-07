@@ -9,9 +9,9 @@ import java.sql.DriverManager;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
- * Created by Panayot Kulchev on 15-4-15.
- * e-mail: panayotkulchev@gmail.com
- * happy coding ...
+ * Created on 15-5-5.
+ *
+ * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
 public class ConnectionPool implements Pool<Connection> {
 

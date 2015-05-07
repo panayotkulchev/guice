@@ -9,9 +9,9 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import javax.swing.*;
 
 /**
- * Created by Panayot Kulchev on 15-3-24.
- * e-mail: panayotkulchev@gmail.com
- * happy coding ...
+ * Created on 15-5-5.
+ *
+ * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
 
 public class JettyRunner {

@@ -7,9 +7,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 /**
- * Created by Panayot Kulchev on 15-4-27.
- * e-mail: panayotkulchev@gmail.com
- * happy coding ...
+ * Created on 15-5-5.
+ *
+ * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
 
 @Singleton

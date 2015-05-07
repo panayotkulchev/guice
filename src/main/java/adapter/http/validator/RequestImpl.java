@@ -3,9 +3,9 @@ package adapter.http.validator;
 import java.util.Map;
 
 /**
- * Created by Panayot Kulchev on 15-4-2.
- * e-mail: panayotkulchev@gmail.com
- * happy coding ...
+ * Created on 15-5-5.
+ *
+ * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
 
 public class RequestImpl implements Request {
