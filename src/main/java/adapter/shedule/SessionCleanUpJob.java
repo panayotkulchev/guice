@@ -2,15 +2,11 @@ package adapter.shedule;
 
 import adapter.db.DataStore;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.xml.crypto.Data;
-import java.sql.Connection;
 
 /**
  * Created on 15-5-5.
@@ -33,7 +29,7 @@ public class SessionCleanUpJob implements Job {
         Logger logger = LoggerFactory.getLogger(SessionCleanUpJob.class);
         logger.info("STARTED session CLEAN process!");
 
-        dataStore.executeQery("DELETE FROM bank.session WHERE expiration_time<?;", System.currentTimeMillis());
+        dataStore.executeQuery("DELETE FROM bank.session WHERE expiration_time<?;", System.currentTimeMillis());
 
     }
 }

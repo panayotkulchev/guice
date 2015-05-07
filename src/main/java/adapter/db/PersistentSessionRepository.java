@@ -21,7 +21,7 @@ public class PersistentSessionRepository implements SessionRepository {
   @Override
   public boolean refresh(String sid, Long expirationTime) {
     if (isExisting(sid)) {
-      dataStore.executeQery("UPDATE bank.session SET expiration_time=? " +
+      dataStore.executeQuery("UPDATE bank.session SET expiration_time=? " +
               "WHERE sid=?", expirationTime, sid);
       return true;
     }
@@ -37,13 +37,13 @@ public class PersistentSessionRepository implements SessionRepository {
 
   @Override
   public void create(Integer userId, String sid) {
-    dataStore.executeQery("INSERT into bank.session(user_fk,sid,expiration_time) values (?,?,?);",
-            userId, sid, System.currentTimeMillis()+ ConfigurationProperites.get("sessionRefreshRate"));
+    dataStore.executeQuery("INSERT into bank.session(user_fk,sid,expiration_time) values (?,?,?);",
+            userId, sid, System.currentTimeMillis() + ConfigurationProperites.get("sessionRefreshRate"));
   }
 
   @Override
   public void delete(String sid) {
-    dataStore.executeQery("DELETE FROM bank.session WHERE sid=?;", sid);
+    dataStore.executeQuery("DELETE FROM bank.session WHERE sid=?;", sid);
   }
 
   @Override

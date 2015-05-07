@@ -2,11 +2,6 @@ package adapter.db;
 
 import com.google.inject.Inject;
 import core.FundsRepository;
-import core.OperationHistory;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
 
 /**
  * Created on 15-5-5.
@@ -33,7 +28,7 @@ public class PersistentFundsRepository implements FundsRepository {
   public void deposit(Integer userPk, Integer amount) {
 
     Integer currentAmount = getAmount(userPk);
-    dataStore.executeQery("UPDATE bank.account SET amount=? WHERE user_fk=?", currentAmount + amount, userPk);
+    dataStore.executeQuery("UPDATE bank.account SET amount=? WHERE user_fk=?", currentAmount + amount, userPk);
 
   }
 
@@ -42,7 +37,7 @@ public class PersistentFundsRepository implements FundsRepository {
     boolean hasSuccess = false;
     Integer currentAmount = getAmount(userPk);
     if (currentAmount > amount) {
-      dataStore.executeQery("UPDATE bank.account SET amount=? WHERE user_fk=?", currentAmount - amount, userPk);
+      dataStore.executeQuery("UPDATE bank.account SET amount=? WHERE user_fk=?", currentAmount - amount, userPk);
       hasSuccess = true;
     }
     return hasSuccess;
@@ -50,7 +45,7 @@ public class PersistentFundsRepository implements FundsRepository {
 
   @Override
   public void createAccount(Integer id) {
-    dataStore.executeQery("INSERT INTO bank.account (amount, user_fk) VALUES (0, ?);", id);
+    dataStore.executeQuery("INSERT INTO bank.account (amount, user_fk) VALUES (0, ?);", id);
   }
 
 }

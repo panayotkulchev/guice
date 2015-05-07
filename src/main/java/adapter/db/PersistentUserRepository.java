@@ -28,7 +28,7 @@ public class PersistentUserRepository implements UserRepository {
   @Override
   public boolean register(String email, String password) {
     if (!isExisting(email)){
-      dataStore.executeQery("INSERT INTO user (user_email,user_password) values(?,?);", email, password);
+      dataStore.executeQuery("INSERT INTO user (user_email,user_password) values(?,?);", email, password);
       return true;
     }
     return false;
