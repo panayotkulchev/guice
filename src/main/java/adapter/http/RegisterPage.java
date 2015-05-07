@@ -63,9 +63,11 @@ public class RegisterPage {
       return "/register?message=" + errorList.get(0);
     }
 
-    boolean hasSuccessRegistration = userRepository.register(email, password);
+    if (!userRepository.isExisting(email)){
+      userRepository.register(email, password);
+    }
 
-    if (!hasSuccessRegistration) {
+    else {
       return "/register?message=Email is already occupied!";
     }
 

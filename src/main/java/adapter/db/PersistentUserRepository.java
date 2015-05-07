@@ -26,25 +26,15 @@ public class PersistentUserRepository implements UserRepository {
   }
 
   @Override
-  public boolean register(String email, String password) {
-    if (!isExisting(email)){
+  public void register(String email, String password) {
       dataStore.executeQuery("INSERT INTO user (user_email,user_password) values(?,?);", email, password);
-      return true;
     }
-    return false;
-  }
+
 
   @Override
   public boolean isExisting(String email) {
     Integer count;
     count = dataStore.executeCount("SELECT count(*) FROM bank.user where user_email = '" + email + "';");
-    return count != 0;
-  }
-
-  @Override
-  public boolean isExisting(String email, String password) {
-    Integer count;
-    count = dataStore.executeCount("SELECT count(*) FROM bank.user where user_email = '" + email + "'"+"and user_password = '"+password+"' ;");
     return count != 0;
   }
 
@@ -81,6 +71,12 @@ public class PersistentUserRepository implements UserRepository {
         return new CurrentUser(rs.getInt("user_pk"),rs.getString("user_email"),rs.getInt("amount"));
       }
     });
+  }
+
+  private boolean isExisting(String email, String password) {
+    Integer count;
+    count = dataStore.executeCount("SELECT count(*) FROM bank.user where user_email = '" + email + "'"+"and user_password = '"+password+"' ;");
+    return count != 0;
   }
 
 }

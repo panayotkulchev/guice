@@ -1,7 +1,6 @@
 package adapter.shedule;
 
 import adapter.db.ConfigurationProperites;
-import adapter.db.DatabaseMetadata;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;

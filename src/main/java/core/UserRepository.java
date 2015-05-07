@@ -8,11 +8,9 @@ package core;
 
 public interface UserRepository {
 
-  boolean register(String email, String password);
+  void register(String email, String password);
 
   boolean isExisting(String email);
-
-  boolean isExisting(String email, String password);
 
   User getByEmail(String email);
 
