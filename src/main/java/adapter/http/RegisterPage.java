@@ -50,7 +50,7 @@ public class RegisterPage {
         }
 
         if (!userRepository.isExisting(email)) {
-            userRepository.register(email, password);
+            userRepository.registerIfNotRegistered(email, password);
         } else {
             return "/register?message=Email is already occupied!";
         }

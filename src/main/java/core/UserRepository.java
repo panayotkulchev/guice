@@ -8,7 +8,7 @@ package core;
 
 public interface UserRepository {
 
-  void register(String email, String password);
+  void registerIfNotRegistered(String email, String password);
 
   boolean isExisting(String email);
 
