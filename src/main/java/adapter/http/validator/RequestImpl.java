@@ -1,5 +1,8 @@
 package adapter.http.validator;
 
+import com.google.inject.Inject;
+import com.google.inject.servlet.RequestParameters;
+
 import java.util.Map;
 
 /**
@@ -10,9 +13,10 @@ import java.util.Map;
 
 public class RequestImpl implements Request {
 
-  private Map<String, String[]> map;
+  private final Map<String, String[]> map;
 
-  public RequestImpl(Map<String, String[]> map) {
+  @Inject
+  public RequestImpl(@RequestParameters Map<String, String[]> map) {
     this.map = map;
   }
 

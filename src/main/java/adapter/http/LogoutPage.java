@@ -8,7 +8,6 @@ import com.google.sitebricks.http.Get;
 import core.SessionRepository;
 import core.SidFetcher;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,43 +21,19 @@ import javax.servlet.http.HttpServletResponse;
 @Show("logout.html")
 public class LogoutPage {
 
-  private final Provider<HttpServletRequest> requestProvider;
-  private final Provider<HttpServletResponse> responseProvider;
-  private final SessionRepository sessionRepository;
-  private final SidFetcher sidFetcher;
+    private final SessionManager sessionManager;
 
-  @Inject
-  public LogoutPage(Provider<HttpServletRequest> requestProvider,
-                    Provider<HttpServletResponse> responseProvider,
-                    SessionRepository sessionRepository,
-                    SidFetcher sidFetcher) {
-
-    this.requestProvider = requestProvider;
-    this.responseProvider = responseProvider;
-    this.sessionRepository = sessionRepository;
-    this.sidFetcher = sidFetcher;
-  }
-
-  @Get
-  private String logOut() {
-
-    HttpServletRequest request = requestProvider.get();
-    HttpServletResponse response = responseProvider.get();
-    String sid = sidFetcher.fetch();
-
-    if (sid != null) {
-
-      sessionRepository.delete(sid);
-
-      for (Cookie each : request.getCookies()) {
-        if (each.getName().equalsIgnoreCase("sid")) {
-          each.setMaxAge(0);
-          response.addCookie(each);
-        }
-      }
+    @Inject
+    public LogoutPage(SessionManager sessionManager) {
+        this.sessionManager = sessionManager;
     }
 
-    return "/login?message=You are logged out!";
+    @Get
+    private String logOut() {
 
-  }
+        sessionManager.delete();
+
+        return "/login?message=You are logged out!";
+
+    }
 }

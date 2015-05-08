@@ -2,6 +2,12 @@ import adapter.db.*;
 import adapter.http.*;
 import adapter.http.bank.DepositPage;
 import adapter.http.bank.WithdrawPage;
+import adapter.http.validator.Request;
+import adapter.http.validator.RequestImpl;
+import adapter.http.validator.Rule;
+
+import adapter.http.validator.ValidationRule;
+import com.google.common.collect.Lists;
 import com.google.inject.*;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.RequestScoped;
@@ -12,6 +18,7 @@ import core.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -71,12 +78,13 @@ public class AppConfig extends GuiceServletContextListener {
 
                         bind(FundsHistoryRepository.class).to(PersistentFundsHistoryRepository.class);
 
+                        bind(Request.class).to(RequestImpl.class);
+
                     }
 
 
                     @Provides
                     @RequestScoped
-
                     public CurrentUser getCurrentUser(SidFetcher sidFetcher, UserRepository userRepository) {
 
                         String sid = sidFetcher.fetch();
@@ -124,6 +132,20 @@ public class AppConfig extends GuiceServletContextListener {
                     public ConfigurationProperties provideConfigurationProperties() {
                         return new ConfigurationProperties();
                     }
+
+                    @Provides
+                    @Singleton
+                    @ValidationRules
+                    public List<Rule> getValidationRules(){
+
+                        List<Rule> rules = Lists.newArrayList();
+                        rules.add(new ValidationRule("email", "Email is not valid", "^[a-z]{3,30}+$"));
+                        rules.add(new ValidationRule("password", "Password is not valid", "^[a-z]{3,10}+$"));
+
+                        return rules;
+                    }
+
+
                 });
     }
 

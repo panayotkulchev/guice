@@ -1,23 +1,14 @@
 package adapter.http;
 
 import adapter.http.validator.RegexValidator;
-import adapter.http.validator.RequestImpl;
-import adapter.http.validator.Rule;
-import adapter.http.validator.ValidationRule;
-import com.google.common.collect.Lists;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.servlet.RequestParameters;
 import com.google.sitebricks.At;
 import com.google.sitebricks.Show;
 import com.google.sitebricks.http.Post;
 import core.FundsRepository;
 import core.UserRepository;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created on 15-5-5.
@@ -29,54 +20,44 @@ import java.util.Map;
 @Show("register.html")
 public class RegisterPage {
 
-  public String email;
-  public String password;
-  public String message;
+    public String email;
+    public String password;
+    public String message;
 
-  private final FundsRepository fundsRepository;
-  private final Map<String, String[]> params;
-  private final UserRepository userRepository;
-
-
-  @Inject
-  public RegisterPage(UserRepository userRepository,
-                      FundsRepository fundsRepository,
-                      @RequestParameters Map<String, String[]> params) {
-
-    this.userRepository = userRepository;
-    this.fundsRepository = fundsRepository;
-    this.params = params;
-  }
+    private final FundsRepository fundsRepository;
+    private final RegexValidator validator;
+    private final UserRepository userRepository;
 
 
-  @Post
-  private String register() {
+    @Inject
+    public RegisterPage(UserRepository userRepository,
+                        FundsRepository fundsRepository,
+                        RegexValidator validator) {
 
-    List<Rule> rules = Lists.newArrayList();
-
-    rules.add(new ValidationRule("email", "Email is not valid", "^[a-z]{3,30}+$"));
-    rules.add(new ValidationRule("password", "Password is not valid", "^[a-z]{3,10}+$"));
-
-    RegexValidator regexValidator = new RegexValidator(rules);
-    RequestImpl req = new RequestImpl(params);
-
-    List<String> errorList = regexValidator.validate(req);
-
-    if (errorList.size() != 0) {
-      return "/register?message=" + errorList.get(0);
+        this.userRepository = userRepository;
+        this.fundsRepository = fundsRepository;
+        this.validator = validator;
     }
 
-    if (!userRepository.isExisting(email)){
-      userRepository.register(email, password);
+
+    @Post
+    private String register() {
+
+        List<String> errorList = validator.validate();
+
+        if (errorList.size() != 0) {
+            return "/register?message=" + errorList.get(0);
+        }
+
+        if (!userRepository.isExisting(email)) {
+            userRepository.register(email, password);
+        } else {
+            return "/register?message=Email is already occupied!";
+        }
+
+        fundsRepository.createAccount(userRepository.getByEmail(email).id);
+
+        return "/login?message=Congratulation! Now you can log in to the system.";
     }
-
-    else {
-      return "/register?message=Email is already occupied!";
-    }
-
-    fundsRepository.createAccount(userRepository.getByEmail(email).id);
-
-    return "/login?message=Congratulation! Now you can log in to the system.";
-  }
 
 }

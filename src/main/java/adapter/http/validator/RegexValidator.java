@@ -1,5 +1,8 @@
 package adapter.http.validator;
 
+import com.google.inject.Inject;
+import core.ValidationRules;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +15,16 @@ import java.util.List;
 public class RegexValidator {
 
     private List<Rule> rules;
+    private final RequestImpl request;
 
-    public RegexValidator(List<Rule> rules) {
+    @Inject
+    public RegexValidator(@ValidationRules List<Rule> rules, RequestImpl request) {
         this.rules = rules;
+        this.request = request;
     }
 
 
-    public List<String> validate(Request request) {
+    public List<String> validate() {
         List<String> errorList = new ArrayList<String>() {{
         }};
 

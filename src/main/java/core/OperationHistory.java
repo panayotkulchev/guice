@@ -10,32 +10,32 @@ import java.sql.Timestamp;
 
 public class OperationHistory {
 
-  private Integer amountBefore;
-  private Integer amountAfter;
-  private Timestamp transactionDate;
+    private Integer amountBefore;
+    private Integer amountAfter;
+    private Timestamp transactionDate;
 
-  public OperationHistory(Integer amountBefore, Integer amountAfter, Timestamp transactionDate) {
+    public OperationHistory(Integer amountBefore, Integer amountAfter, Timestamp transactionDate) {
 
-    this.amountBefore = amountBefore;
-    this.amountAfter = amountAfter;
-    this.transactionDate = transactionDate;
-  }
+        this.amountBefore = amountBefore;
+        this.amountAfter = amountAfter;
+        this.transactionDate = transactionDate;
+    }
 
-  public Integer getAmountBefore() {
-    return amountBefore;
-  }
+    public Integer getAmountBefore() {
+        return amountBefore;
+    }
 
-  public Integer getAmountAfter() {
-    return amountAfter;
-  }
+    public Integer getAmountAfter() {
+        return amountAfter;
+    }
 
-  public Timestamp getTransactionDate() {
-    return transactionDate;
-  }
+    public Timestamp getTransactionDate() {
+        return transactionDate;
+    }
 
-  @Override
-  public String toString() {
-    return transactionDate.toString()+" "+amountBefore+" "+amountAfter;
+    @Override
+    public String toString() {
+        return transactionDate.toString() + " " + amountBefore + " " + amountAfter;
 
-  }
+    }
 }

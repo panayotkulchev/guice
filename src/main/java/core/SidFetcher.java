@@ -14,28 +14,28 @@ import javax.servlet.http.HttpServletRequest;
 
 public class SidFetcher {
 
-  private final Provider<HttpServletRequest> requestProvider;
+    private final Provider<HttpServletRequest> requestProvider;
 
-  @Inject
-  public SidFetcher(Provider<HttpServletRequest> requestProvider) {
-    this.requestProvider = requestProvider;
-  }
-
-  public String fetch() {
-
-    HttpServletRequest httpServletRequest = requestProvider.get();
-    Cookie[] cookies = httpServletRequest.getCookies();
-    if (cookies == null) {
-      return null;
+    @Inject
+    public SidFetcher(Provider<HttpServletRequest> requestProvider) {
+        this.requestProvider = requestProvider;
     }
 
-    for (Cookie each : cookies) {
-      if (each.getName().equalsIgnoreCase("sid")) {
-        return each.getValue();
-      }
-    }
+    public String fetch() {
 
-    return null;
-  }
+        HttpServletRequest httpServletRequest = requestProvider.get();
+        Cookie[] cookies = httpServletRequest.getCookies();
+        if (cookies == null) {
+            return null;
+        }
+
+        for (Cookie each : cookies) {
+            if (each.getName().equalsIgnoreCase("sid")) {
+                return each.getValue();
+            }
+        }
+
+        return null;
+    }
 
 }
