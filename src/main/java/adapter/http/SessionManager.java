@@ -21,7 +21,7 @@ import java.util.UUID;
 
 public class SessionManager {
 
-    String sid;
+    private String sid;
 
     private final SessionRepository sessionRepository;
     private final SidFetcher sidFetcher;
@@ -60,7 +60,7 @@ public class SessionManager {
         }
     }
 
-    public void refresh(){
+    public void refresh() {
 
         sid = sidFetcher.fetch();
         Cookie cookie = new Cookie("sid", sid);
@@ -71,7 +71,7 @@ public class SessionManager {
         sessionRepository.refresh(sid, System.currentTimeMillis() + sessionRefreshRate);
     }
 
-    public void delete(){
+    public void delete() {
 
         String sid = sidFetcher.fetch();
         HttpServletResponse response = responseProvider.get();
@@ -90,7 +90,7 @@ public class SessionManager {
         }
     }
 
-    static String sha1(String input) {
+    private String sha1(String input) {
         MessageDigest mDigest = null;
         try {
             mDigest = MessageDigest.getInstance("SHA1");
