@@ -1,6 +1,6 @@
 package adapter.http;
 
-import adapter.db.ConfigurationProperites;
+import adapter.db.ConfigurationProperties;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import core.SessionRepository;
@@ -22,11 +22,13 @@ public class SecurityFilter implements Filter {
 
     private final SessionRepository sessionRepository;
     private final SidFetcher sidFetcher;
+    private final ConfigurationProperties properties;
 
     @Inject
-    public SecurityFilter(SessionRepository sessionRepository, SidFetcher sidFetcher) {
+    public SecurityFilter(SessionRepository sessionRepository, SidFetcher sidFetcher, ConfigurationProperties properties) {
         this.sessionRepository = sessionRepository;
         this.sidFetcher = sidFetcher;
+        this.properties = properties;
     }
 
     public void init(FilterConfig config) throws ServletException {
@@ -34,17 +36,20 @@ public class SecurityFilter implements Filter {
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
 
+        sessionRepository.cleanExpired();
+
         HttpServletResponse response = (HttpServletResponse) resp;
 
         String sid = sidFetcher.fetch();
 
         if (sid == null || !sessionRepository.isExisting(sid)) {
             response.sendRedirect("/login?message=Session expired. Please login!");
+            return;
         }
 
         Cookie cookie = new Cookie("sid", sid);
 
-        Integer sessionRefreshRate = ConfigurationProperites.get("sessionRefreshRate");
+        Integer sessionRefreshRate = properties.get("sessionRefreshRate");
         cookie.setMaxAge(sessionRefreshRate / 1000);
         response.addCookie(cookie);
 

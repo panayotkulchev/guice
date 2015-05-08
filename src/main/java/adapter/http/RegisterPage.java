@@ -27,7 +27,6 @@ import java.util.Map;
 
 @At("/register")
 @Show("register.html")
-
 public class RegisterPage {
 
   public String email;

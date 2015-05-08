@@ -8,11 +8,13 @@ package core;
 
 public interface SessionRepository {
 
-  boolean refresh(String sid, Long expirationTime);
+  void refresh(String sid, Long expirationTime);
 
   boolean isExisting(String sid);
 
   void create(Integer userId, String sid);
+
+  void cleanExpired();
 
   void delete(String sid);
 

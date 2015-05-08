@@ -11,22 +11,20 @@ import core.SessionRepository;
 public class PersistentSessionRepository implements SessionRepository {
 
   private final DataStore dataStore;
+  private final ConfigurationProperties properties;
 
   @Inject
-  public PersistentSessionRepository(DataStore dataStore) {
+  public PersistentSessionRepository(DataStore dataStore, ConfigurationProperties properties) {
     this.dataStore = dataStore;
+    this.properties = properties;
   }
 
 
   @Override
-  public boolean refresh(String sid, Long expirationTime) {
-    if (isExisting(sid)) {
+  public void refresh(String sid, Long expirationTime) {
       dataStore.executeQuery("UPDATE bank.session SET expiration_time=? " +
               "WHERE sid=?", expirationTime, sid);
-      return true;
     }
-    return false;
-  }
 
   @Override
   public boolean isExisting(String sid) {
@@ -38,7 +36,12 @@ public class PersistentSessionRepository implements SessionRepository {
   @Override
   public void create(Integer userId, String sid) {
     dataStore.executeQuery("INSERT into bank.session(user_fk,sid,expiration_time) values (?,?,?);",
-            userId, sid, System.currentTimeMillis() + ConfigurationProperites.get("sessionRefreshRate"));
+            userId, sid, System.currentTimeMillis() + properties.get("sessionRefreshRate"));
+  }
+
+  @Override
+  public void cleanExpired() {
+    dataStore.executeQuery("DELETE FROM bank.session WHERE expiration_time<?;", System.currentTimeMillis());
   }
 
   @Override

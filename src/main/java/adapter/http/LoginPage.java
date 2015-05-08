@@ -1,6 +1,6 @@
 package adapter.http;
 
-import adapter.db.ConfigurationProperites;
+import adapter.db.ConfigurationProperties;
 import adapter.http.validator.RegexValidator;
 import adapter.http.validator.RequestImpl;
 import adapter.http.validator.Rule;
@@ -43,18 +43,21 @@ public class LoginPage {
     private final UserRepository userRepository;
     private final SessionRepository sessionRepository;
     private final SidFetcher sidFetcher;
+    private final ConfigurationProperties properties;
 
     @Inject
     public LoginPage(Provider<HttpServletRequest> requestProvider,
                      Provider<HttpServletResponse> responseProvider,
                      UserRepository userRepository,
-                     SessionRepository sessionRepository, SidFetcher sidFetcher) {
+                     SessionRepository sessionRepository, SidFetcher sidFetcher,
+                     ConfigurationProperties properties) {
 
         this.requestProvider = requestProvider;
         this.responseProvider = responseProvider;
         this.userRepository = userRepository;
         this.sessionRepository = sessionRepository;
         this.sidFetcher = sidFetcher;
+        this.properties = properties;
     }
 
     @Post
@@ -90,7 +93,7 @@ public class LoginPage {
             String randomValue = "panayotkulchev@gmail.com" + uuid.randomUUID().toString() + "abc";
             sid = sha1(randomValue);
             Cookie cookie = new Cookie("sid", sid);
-            cookie.setMaxAge(ConfigurationProperites.get("sessionRefreshRate"));
+            cookie.setMaxAge(properties.get("sessionRefreshRate"));
             response.addCookie(cookie);
             sessionRepository.create(authorizationResult.getUser().id, sid);
         }

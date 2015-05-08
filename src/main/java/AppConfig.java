@@ -116,10 +116,14 @@ public class AppConfig extends GuiceServletContextListener {
                     @Provides
                     @Singleton
                     public DatabaseMetadata provideDatabaseMetadata() {
-
                         return new DatabaseMetadata();
                     }
 
+                    @Provides
+                    @Singleton
+                    public ConfigurationProperties provideConfigurationProperties() {
+                        return new ConfigurationProperties();
+                    }
                 });
     }
 

@@ -6,7 +6,6 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,15 +62,13 @@ public class DataStore {
     }
 
 
-
-
     public Integer executeCount(String query) {
 
-        Integer result=0;
+        Integer result = 0;
         try {
 
             Connection connection = connectionProvider.get();
-            Statement  statement = connection.createStatement();
+            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             resultSet.next();

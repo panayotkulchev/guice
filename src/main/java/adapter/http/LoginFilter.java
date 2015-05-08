@@ -27,11 +27,13 @@ public class LoginFilter implements Filter {
 
   private final SessionRepository sessionRepository;
   private final SidFetcher sidFetcher;
+  private final ConfigurationProperties properties;
 
   @Inject
-  public LoginFilter(SessionRepository sessionRepository, SidFetcher sidFetcher) {
+  public LoginFilter(SessionRepository sessionRepository, SidFetcher sidFetcher, ConfigurationProperties properties) {
     this.sessionRepository = sessionRepository;
     this.sidFetcher = sidFetcher;
+    this.properties = properties;
   }
 
   public void init(FilterConfig config) throws ServletException {
@@ -49,7 +51,7 @@ public class LoginFilter implements Filter {
 
     } else {
       Cookie cookie = new Cookie("sid", sid);
-      Integer sessionRefreshRate = ConfigurationProperites.get("sessionRefreshRate");
+      Integer sessionRefreshRate = properties.get("sessionRefreshRate");
       cookie.setMaxAge(sessionRefreshRate / 1000);
       response.addCookie(cookie);
 

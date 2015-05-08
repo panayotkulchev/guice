@@ -1,6 +1,6 @@
 package adapter.http;
 
-import adapter.db.ConfigurationProperites;
+import adapter.db.ConfigurationProperties;
 import com.google.inject.Inject;
 import com.google.sitebricks.At;
 import com.google.sitebricks.Show;
@@ -28,16 +28,19 @@ public class ReportPage {
     private final UserRepository userRepository;
     private final FundsHistoryRepository fundsHistoryRepository;
     private final SidFetcher sidFetcher;
+    private final ConfigurationProperties properties;
 
 
     @Inject
     public ReportPage(UserRepository userRepository,
                       FundsHistoryRepository fundsHistoryRepository,
-                      SidFetcher sidFetcher) {
+                      SidFetcher sidFetcher,
+                      ConfigurationProperties properties) {
 
         this.userRepository = userRepository;
         this.fundsHistoryRepository = fundsHistoryRepository;
         this.sidFetcher = sidFetcher;
+        this.properties = properties;
     }
 
     @Get
@@ -47,7 +50,7 @@ public class ReportPage {
 
         Integer userId = userRepository.getBySid(sid).id;
 
-        Integer offset = ConfigurationProperites.get("recordsPerPage");
+        Integer offset = properties.get("recordsPerPage");
 
         Integer start = (page - 1) * 5;
 

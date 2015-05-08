@@ -1,7 +1,6 @@
 package adapter.http;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.sitebricks.Show;
 import com.google.sitebricks.rendering.EmbedAs;
 import core.*;
@@ -16,21 +15,34 @@ import core.*;
 @EmbedAs("Menu")
 public class Menu {
 
-  private Integer userAmount;
-  private String userEmail;
-  private final CurrentUser currentUser;
+//  private Integer userAmount;
+//  private String userEmail;
+
+  public CurrentUser user;
 
 
   @Inject
-  public Menu(CurrentUser currentUser) {
-    this.currentUser = currentUser;
+  public Menu(CurrentUser user) {
+    this.user = user;
   }
-
-  public Integer getUserAmount() {
-    return currentUser.amount;
-  }
-
-  public String getUserEmail() {
-    return currentUser.email;
-  }
+//
+//  public Integer getUserAmount() {
+//    return user.amount;
+//  }
+//
+//  public String getUserEmail() {
+//    return user.email;
+//  }
 }
+
+//@Show("menu.html")
+//@EmbedAs("Menu")
+//public class Menu {
+//
+//  public CurrentUser user;
+//
+//  @Inject
+//  public Menu(CurrentUser user) {
+//    this.user = user;
+//  }
+//}
