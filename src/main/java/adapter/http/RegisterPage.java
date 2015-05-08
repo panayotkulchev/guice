@@ -7,6 +7,7 @@ import adapter.http.validator.ValidationRule;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.servlet.RequestParameters;
 import com.google.sitebricks.At;
 import com.google.sitebricks.Show;
 import com.google.sitebricks.http.Post;
@@ -16,6 +17,7 @@ import core.UserRepository;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created on 15-5-5.
@@ -33,17 +35,18 @@ public class RegisterPage {
   public String message;
 
   private final FundsRepository fundsRepository;
-  private final Provider<HttpServletRequest> requestProvider;
+  private final Map<String, String[]> params;
   private final UserRepository userRepository;
+
 
   @Inject
   public RegisterPage(UserRepository userRepository,
                       FundsRepository fundsRepository,
-                      Provider<HttpServletRequest> requestProvider) {
+                      @RequestParameters Map<String, String[]> params) {
 
     this.userRepository = userRepository;
     this.fundsRepository = fundsRepository;
-    this.requestProvider = requestProvider;
+    this.params = params;
   }
 
 
@@ -55,9 +58,8 @@ public class RegisterPage {
     rules.add(new ValidationRule("email", "Email is not valid", "^[a-z]{3,30}+$"));
     rules.add(new ValidationRule("password", "Password is not valid", "^[a-z]{3,10}+$"));
 
-    HttpServletRequest request = requestProvider.get();
     RegexValidator regexValidator = new RegexValidator(rules);
-    RequestImpl req = new RequestImpl(request.getParameterMap());
+    RequestImpl req = new RequestImpl(params);
 
     List<String> errorList = regexValidator.validate(req);
 

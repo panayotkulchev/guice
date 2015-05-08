@@ -40,18 +40,18 @@ public class SecurityFilter implements Filter {
 
         if (sid == null || !sessionRepository.isExisting(sid)) {
             response.sendRedirect("/login?message=Session expired. Please login!");
-
-        } else {
-            Cookie cookie = new Cookie("sid", sid);
-
-            Integer sessionRefreshRate = ConfigurationProperites.get("sessionRefreshRate");
-            cookie.setMaxAge(sessionRefreshRate / 1000);
-            response.addCookie(cookie);
-
-            sessionRepository.refresh(sid, System.currentTimeMillis() + sessionRefreshRate);
-
-            chain.doFilter(req, resp);
         }
+
+        Cookie cookie = new Cookie("sid", sid);
+
+        Integer sessionRefreshRate = ConfigurationProperites.get("sessionRefreshRate");
+        cookie.setMaxAge(sessionRefreshRate / 1000);
+        response.addCookie(cookie);
+
+        sessionRepository.refresh(sid, System.currentTimeMillis() + sessionRefreshRate);
+
+        chain.doFilter(req, resp);
+
     }
 
     public void destroy() {
