@@ -1,5 +1,7 @@
 package adapter.db;
 
+import com.google.inject.Singleton;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Properties;
@@ -10,17 +12,19 @@ import java.util.Properties;
  * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
 
+@Singleton
 public class DatabaseMetadata {
 
-    public String get(String propertyName) {
+  Properties prop = new Properties();
 
-        Properties prop = new Properties();
-        try {
-            prop.load(new FileInputStream(new File("src/main/resources/configuration.properties")));
+  public String get(String propertyName) {
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return  prop.getProperty(propertyName);
+    try {
+      prop.load(new FileInputStream(new File("src/main/resources/configuration.properties")));
+
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+    return prop.getProperty(propertyName);
+  }
 }

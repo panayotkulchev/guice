@@ -12,18 +12,18 @@ import java.util.Properties;
 
 public class ConfigurationProperties {
 
-        public Integer get(String propertyName) {
+  public Integer get(String propertyName) {
 
-        Properties prop = new Properties();
-        try {
+    Properties prop = new Properties();
+    try {
 
-            prop.load(new FileInputStream(new File("src/main/resources/configuration.properties")));
+      prop.load(new FileInputStream(new File("src/main/resources/configuration.properties")));
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return  Integer.parseInt(prop.getProperty(propertyName));
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+
+    return Integer.parseInt(prop.getProperty(propertyName));
+  }
 
 }
