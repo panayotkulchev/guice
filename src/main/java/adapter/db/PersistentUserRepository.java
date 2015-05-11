@@ -26,7 +26,7 @@ public class PersistentUserRepository implements UserRepository {
   }
 
   @Override
-  public void registerIfNotRegistered(String email, String password) {
+  public void register(String email, String password) {
       dataStore.executeQuery("INSERT INTO user (user_email,user_password) values(?,?);", email, password);
     }
 

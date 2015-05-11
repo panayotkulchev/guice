@@ -20,16 +20,16 @@ public class SecurityFilter implements Filter {
 
     private final SessionRepository sessionRepository;
     private final SidFetcher sidFetcher;
-    private final SessionManager sessionManager;
+    private final UserSession userSession;
 
     @Inject
     public SecurityFilter(SessionRepository sessionRepository,
                           SidFetcher sidFetcher,
-                          SessionManager sessionManager) {
+                          UserSession userSession) {
 
         this.sessionRepository = sessionRepository;
         this.sidFetcher = sidFetcher;
-        this.sessionManager = sessionManager;
+        this.userSession = userSession;
     }
 
     public void init(FilterConfig config) throws ServletException {
@@ -47,7 +47,7 @@ public class SecurityFilter implements Filter {
             return;
         }
 
-        sessionManager.refresh();
+        userSession.refresh();
         chain.doFilter(req, resp);
     }
 

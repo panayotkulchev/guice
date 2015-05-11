@@ -20,13 +20,13 @@ public class LoginFilter implements Filter {
 
     private final SessionRepository sessionRepository;
     private final SidFetcher sidFetcher;
-    private final SessionManager sessionManager;
+    private final UserSession userSession;
 
     @Inject
-    public LoginFilter(SessionRepository sessionRepository, SidFetcher sidFetcher, SessionManager sessionManager) {
+    public LoginFilter(SessionRepository sessionRepository, SidFetcher sidFetcher, UserSession userSession) {
         this.sessionRepository = sessionRepository;
         this.sidFetcher = sidFetcher;
-        this.sessionManager = sessionManager;
+        this.userSession = userSession;
     }
 
     public void init(FilterConfig config) throws ServletException {
@@ -43,7 +43,7 @@ public class LoginFilter implements Filter {
 
         } else {
 
-            sessionManager.refresh();
+            userSession.refresh();
             response.sendRedirect("/welcome");
         }
     }

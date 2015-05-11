@@ -1,15 +1,9 @@
 package adapter.http;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.sitebricks.At;
 import com.google.sitebricks.Show;
 import com.google.sitebricks.http.Get;
-import core.SessionRepository;
-import core.SidFetcher;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created on 15-5-5.
@@ -21,17 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 @Show("logout.html")
 public class LogoutPage {
 
-    private final SessionManager sessionManager;
+    private final UserSession userSession;
 
     @Inject
-    public LogoutPage(SessionManager sessionManager) {
-        this.sessionManager = sessionManager;
+    public LogoutPage(UserSession userSession) {
+        this.userSession = userSession;
     }
 
     @Get
     private String logOut() {
 
-        sessionManager.delete();
+        userSession.delete();
 
         return "/login?message=You are logged out!";
 

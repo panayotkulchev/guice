@@ -19,7 +19,7 @@ import java.util.UUID;
  * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
 
-public class SessionManager {
+public class UserSession {
 
     private String sid;
 
@@ -30,11 +30,11 @@ public class SessionManager {
     private final Provider<HttpServletRequest> requestProvider;
 
     @Inject
-    public SessionManager(SessionRepository sessionRepository,
-                          SidFetcher sidFetcher,
-                          ConfigurationProperties properties,
-                          Provider<HttpServletResponse> responseProvider,
-                          Provider<HttpServletRequest> requestProvider) {
+    public UserSession(SessionRepository sessionRepository,
+                       SidFetcher sidFetcher,
+                       ConfigurationProperties properties,
+                       Provider<HttpServletResponse> responseProvider,
+                       Provider<HttpServletRequest> requestProvider) {
 
         this.sessionRepository = sessionRepository;
         this.sidFetcher = sidFetcher;
@@ -43,7 +43,7 @@ public class SessionManager {
         this.requestProvider = requestProvider;
     }
 
-    public void createSession(Integer userId) {
+    public void create(Integer userId) {
 
         sid = sidFetcher.fetch();
 

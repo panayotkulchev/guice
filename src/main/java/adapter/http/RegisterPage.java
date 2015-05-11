@@ -43,14 +43,14 @@ public class RegisterPage {
     @Post
     private String register() {
 
-        List<String> errorList = validator.validate();
+        List<String> errorList = validator.validateRequestParams();
 
         if (errorList.size() != 0) {
             return "/register?message=" + errorList.get(0);
         }
 
         if (!userRepository.isExisting(email)) {
-            userRepository.registerIfNotRegistered(email, password);
+            userRepository.register(email, password);
         } else {
             return "/register?message=Email is already occupied!";
         }

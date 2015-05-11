@@ -24,7 +24,7 @@ public class RegexValidator {
     }
 
 
-    public List<String> validate() {
+    public List<String> validateRequestParams() {
         List<String> errorList = new ArrayList<String>() {{
         }};
 

@@ -26,22 +26,22 @@ public class LoginPage {
 
     private final UserRepository userRepository;
     private final RegexValidator validator;
-    private final SessionManager sessionManager;
+    private final UserSession userSession;
 
     @Inject
     public LoginPage(UserRepository userRepository,
                      RegexValidator validator,
-                     SessionManager sessionManager) {
+                     UserSession userSession) {
 
         this.userRepository = userRepository;
         this.validator = validator;
-        this.sessionManager = sessionManager;
+        this.userSession = userSession;
     }
 
     @Post
     public String login() {
 
-        List<String> errorList = validator.validate();
+        List<String> errorList = validator.validateRequestParams();
 
         if (errorList.size() != 0) {
             return "/login?message=" + errorList.get(0);
@@ -53,7 +53,7 @@ public class LoginPage {
             return "/login?message=User do not exist!";
         }
 
-        sessionManager.createSession(authorizationResult.user.id);
+        userSession.create(authorizationResult.user.id);
         return "/welcome";
 
     }
