@@ -19,33 +19,33 @@ public class PersistentFundsRepository implements FundsRepository {
   }
 
   @Override
-  public Integer getAmount(Integer userPk) {
-    return dataStore.executeCount("SELECT amount from bank.account WHERE user_fk='" + userPk + "'");
+  public Integer getAmount(Integer userId) {
+    return dataStore.executeCount("SELECT amount from bank.account WHERE user_fk='" + userId + "'");
   }
 
 
   @Override
-  public void deposit(Integer userPk, Integer amount) {
+  public void deposit(Integer userId, Integer amount) {
 
-    Integer currentAmount = getAmount(userPk);
-    dataStore.executeQuery("UPDATE bank.account SET amount=? WHERE user_fk=?", currentAmount + amount, userPk);
+    Integer currentAmount = getAmount(userId);
+    dataStore.executeQuery("UPDATE bank.account SET amount=? WHERE user_fk=?", currentAmount + amount, userId);
 
   }
 
   @Override
-  public boolean withdraw(Integer userPk, Integer amount) {
+  public boolean withdraw(Integer userId, Integer amount) {
     boolean hasSuccess = false;
-    Integer currentAmount = getAmount(userPk);
+    Integer currentAmount = getAmount(userId);
     if (currentAmount > amount) {
-      dataStore.executeQuery("UPDATE bank.account SET amount=? WHERE user_fk=?", currentAmount - amount, userPk);
+      dataStore.executeQuery("UPDATE bank.account SET amount=? WHERE user_fk=?", currentAmount - amount, userId);
       hasSuccess = true;
     }
     return hasSuccess;
   }
 
   @Override
-  public void createAccount(Integer id) {
-    dataStore.executeQuery("INSERT INTO bank.account (amount, user_fk) VALUES (0, ?);", id);
+  public void createAccount(Integer userId) {
+    dataStore.executeQuery("INSERT INTO bank.account (amount, user_fk) VALUES (0, ?);", userId);
   }
 
 }
