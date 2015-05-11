@@ -15,12 +15,12 @@ import java.util.List;
 public class RegexValidator {
 
     private List<Rule> rules;
-    private final RequestImpl request;
+    private final ParamHolder paramHolder;
 
     @Inject
-    public RegexValidator(@ValidationRules List<Rule> rules, RequestImpl request) {
+    public RegexValidator(@ValidationRules List<Rule> rules, ParamHolder paramHolder) {
         this.rules = rules;
-        this.request = request;
+        this.paramHolder = paramHolder;
     }
 
 
@@ -30,7 +30,7 @@ public class RegexValidator {
 
         for (Rule each : rules) {
 
-            String value = request.param(each.name());
+            String value = paramHolder.param(each.name());
 
             if (!each.isValid(value)) {
                 errorList.add(each.errorMessage());

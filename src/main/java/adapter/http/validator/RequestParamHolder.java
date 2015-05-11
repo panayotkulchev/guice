@@ -11,12 +11,12 @@ import java.util.Map;
  * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
 
-public class RequestImpl implements Request {
+public class RequestParamHolder implements ParamHolder {
 
   private final Map<String, String[]> map;
 
   @Inject
-  public RequestImpl(@RequestParameters Map<String, String[]> map) {
+  public RequestParamHolder(@RequestParameters Map<String, String[]> map) {
     this.map = map;
   }
 

@@ -2,8 +2,8 @@ import adapter.db.*;
 import adapter.http.*;
 import adapter.http.bank.DepositPage;
 import adapter.http.bank.WithdrawPage;
-import adapter.http.validator.Request;
-import adapter.http.validator.RequestImpl;
+import adapter.http.validator.ParamHolder;
+import adapter.http.validator.RequestParamHolder;
 import adapter.http.validator.Rule;
 
 import adapter.http.validator.ValidationRule;
@@ -78,7 +78,7 @@ public class AppConfig extends GuiceServletContextListener {
 
                         bind(FundsHistoryRepository.class).to(PersistentFundsHistoryRepository.class);
 
-                        bind(Request.class).to(RequestImpl.class);
+                        bind(ParamHolder.class).to(RequestParamHolder.class);
 
                     }
 

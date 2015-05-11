@@ -6,7 +6,7 @@ package adapter.http.validator;
  * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
 
-public interface Request {
+public interface ParamHolder {
 
   String param(String name);
 
